@@ -22,9 +22,9 @@ const slidesData = [
     title: 'La Paradoja del Crecimiento',
     subtitle: 'El éxito genera más trabajo manual, más fricción y más estrés operacional.',
     steps: [
-      { num: '01', title: 'Expansión Comercial', desc: 'Aumento de volumen transaccional continuo', icon: <TrendingUp className="text-blue-400" /> },
-      { num: '02', title: 'Fricción Operativa', desc: 'Procesos legacy que no escalan linealmente', icon: <Activity className="text-amber-400" /> },
-      { num: '03', title: 'Colapso Sistémico', desc: 'Cuellos de botella en flujos artesanales', icon: <XCircle className="text-rose-400" /> }
+      { num: '1', title: 'Más ventas', desc: 'El objetivo que se persigue', icon: <TrendingUp className="text-blue-400" /> },
+      { num: '2', title: 'Más complejidad', desc: 'Procesos que ya no escalan', icon: <Activity className="text-amber-400" /> },
+      { num: '3', title: 'Procesos rotos', desc: 'Sistemas artesanales que colapsan', icon: <XCircle className="text-rose-400" /> }
     ],
     bg: TECH_BG,
     textColor: 'text-slate-100'
@@ -33,22 +33,22 @@ const slidesData = [
     id: 2,
     layout: 'columns',
     title: 'El "Impuesto a la Ineficiencia"',
-    subtitle: 'Un costo estructural silencioso. La pérdida de capital humano en tareas automatizables erosiona los márgenes.',
+    subtitle: 'Un costo silencioso que todos pagamos sin darnos cuenta. Cada dia perdemos tiempo valioso en tareas que podrian automatizarse.',
     cols: [
       {
         icon: <FileText size={24} className="text-blue-400 mb-4" />,
-        title: 'Operaciones CORE',
-        items: ['Conciliación manual de datos fragmentados.', 'Doble o triple carga de información.']
+        title: 'En Administración',
+        items: ['Horas al día cargando planillas a mano y analizandolas.']
       },
       {
         icon: <LifeBuoy size={24} className="text-cyan-400 mb-4" />,
-        title: 'Atención al Cliente',
-        items: ['Resolución reiterativa de consultas L1.', 'Falta de enrutamiento inteligente de tickets.']
+        title: 'En Soporte',
+        items: ['Preguntas repetidas que se responden mil veces', 'Formularios que se llenan manualmente', 'Respuestas que se copian y pegan']
       },
       {
         icon: <Target size={24} className="text-indigo-400 mb-4" />,
-        title: 'Crecimiento (Ventas)',
-        items: ['Seguimiento asíncrono y manual en CRM.', 'Pérdida de tracción por latencia en respuestas.']
+        title: 'En Ventas',
+        items: ['Follow-up manual en CRM', 'Propuestas que se copian', 'Seguimiento de leads perdido']
       }
     ],
     bg: TECH_BG,
@@ -58,11 +58,11 @@ const slidesData = [
     id: 3,
     layout: 'stats',
     title: 'La Matemática del Error',
-    subtitle: 'Impacto cuantitativo de la dependencia humana en transferencia de datos.',
-    text: 'La intervención manual en procesos de datos conlleva una desviación estándar inevitable. El impacto compuesto destruye la confiabilidad del dato.',
+    subtitle: 'No es solo pérdida de tiempo, es pérdida de precisión. La carga manual genera errores costosos.',
+    text: 'Una sola hora de trabajo manual tiene entre 1% y 5% de probabilidad de contener errores. Multiplica eso por 100 horas mensuales.',
     stats: [
-      { value: '100h', label: 'Fuga Operativa', desc: 'Por FTE/mes en tareas no cognitivas' },
-      { value: '±3%', label: 'Margen de Error Base', desc: 'En cada nodo de entrada manual' }
+      { value: '100', label: 'Horas perdidas', desc: 'Al mes en tareas repetitivas y manuales' },
+      { value: '1-5%', label: 'Probabilidad de error', desc: 'En cada carga manual de datos' }
     ],
     bg: TECH_BG,
     textColor: 'text-slate-100'
@@ -70,12 +70,12 @@ const slidesData = [
   {
     id: 4,
     layout: 'spof',
-    title: 'Vulnerabilidad: SPOF',
-    subtitle: 'Single Point of Failure - Nodos críticos no redundantes en la arquitectura organizacional.',
-    q1: 'Definición Técnica',
-    a1: 'Un componente central (humano o proceso) cuya interrupción causa un fallo total del sistema.',
-    q2: 'El Escenario de Riesgo',
-    alert: 'ERR_CRITICAL_DEPENDENCY: EL PROCESO DEPENDE DE UN SOLO ACTOR',
+    title: 'El Riesgo Real: SPOF',
+    subtitle: 'Single Point of Failure - El punto único de falla que puede paralizar todo.',
+    q1: '¿Qué es?',
+    a1: 'Un solo empleado, un solo sistema o un solo proceso que si falla, todo se detiene.',
+    q2: '¿Qué pasa cuando la persona clave se enferma, se va de vacaciones o renuncia?',
+    alert: 'PUNTO ÚNICO DE FALLA: Romina es crucial para la integración. FALLA DEL SISTEMA',
     bg: TECH_BG,
     textColor: 'text-slate-100'
   },
@@ -83,20 +83,20 @@ const slidesData = [
     id: 5,
     layout: 'center_focus',
     title: 'El "Bus Factor"',
-    text: 'El número mínimo de miembros del equipo que deben desaparecer repentinamente para que la operatividad técnica se detenga por completo.',
-    bigNumber: '1',
+    text: '¿Cuántas personas deben desaparecer de una organización para que esta se paralice?',
+    bigNumber: '80',
     bg: TECH_BG,
     textColor: 'text-slate-100'
   },
   {
     id: 6,
     layout: 'features',
-    title: 'La IA como Infraestructura',
-    subtitle: 'Transición de flujos manuales a sistemas autónomos supervisados. La IA como capa habilitadora.',
+    title: 'La IA como Copiloto',
+    subtitle: 'Olvidemos la ciencia ficción. La IA real es una herramienta accesible que puede trabajar con las empresas todos los días.',
     items: [
-      { icon: <Clock className="text-blue-400" size={32} />, title: 'Disponibilidad Lógica 24/7', desc: 'Ejecución continua sin degradación de rendimiento.' },
-      { icon: <Brain className="text-cyan-400" size={32} />, title: 'Procesamiento Cognitivo', desc: 'Análisis de datos desestructurados a escala.' },
-      { icon: <Zap className="text-indigo-400" size={32} />, title: 'Integración Seamless', desc: 'Orquestación de APIs y sistemas fragmentados.' }
+      { icon: <Clock className="text-blue-400" size={32} />, title: 'Asistente 24/7', desc: 'Trabaja sin descanso y sin errores propios de la fatiga' },
+      { icon: <Brain className="text-cyan-400" size={32} />, title: 'Análisis inteligente', desc: 'Procesa datos, encuentra patrones y genera insights' },
+      { icon: <Zap className="text-indigo-400" size={32} />, title: 'Automatización real', desc: 'Conecta sistemas, mueve datos, ejecuta tareas sin tocar' }
     ],
     bg: TECH_BG,
     textColor: 'text-slate-100'
@@ -104,47 +104,47 @@ const slidesData = [
   {
     id: 7,
     layout: 'tools',
-    title: 'Arquitectura de Soluciones',
-    subtitle: 'Stack tecnológico aplicado a la resolución de problemas empresariales comunes.',
+    title: 'Casos de Uso Reales',
+    subtitle: 'Herramientas que están cambiando la gestión diaria da agencias y plymes',
     cols: [
       {
         icon: <GitCommit className="text-blue-500 mb-4" size={32} />,
-        title: 'Orquestación: n8n / Make',
-        items: ['Pipelines de datos automatizados', 'Sincronización ERP <-> CRM en tiempo real', 'Workflows basados en eventos puros']
+        title: 'n8n: Automatización 24/7',
+        items: ['Conecta tu CRM con tu contabilidad', 'Genera facturas automaticamente', 'Sincroniza leads sin tocar', 'Flujos que nunca duermen']
       },
       {
         icon: <LineChart className="text-cyan-500 mb-4" size={32} />,
-        title: 'Análisis: LLMs',
-        items: ['Parsing inteligente de facturación', 'Detección de anomalías en P&L', 'Generación automatizada de reportes BI']
+        title: 'GPT: Tu Analista Financiero',
+        items: ['Analiza tu hoja de costes en segundos', 'Identifica desviaciones automáticamente', 'Genera reportes ejecutivos', 'Responde preguntas de datos']
       }
     ],
-    footer: 'Infraestructura disponible hoy bajo modelos SaaS/PaaS accesibles.',
+    footer: 'Estas no son tecnologias del futuro, están disponibles hoy. Y son más accesibles de lo que uno cree.',
     bg: TECH_BG,
     textColor: 'text-slate-100'
   },
   {
     id: 8,
     layout: 'limitations',
-    title: 'Fronteras del Sistema',
-    subtitle: 'Limitaciones inherentes de los modelos algorítmicos actuales en entornos empresariales.',
+    title: 'Lo que la IA no tiene',
+    subtitle: 'Olvidemos la ciencia ficción. La IA real es una herramienta accesible que puede trabajar con uno todos los días.',
     items: [
-      { icon: <Lightbulb size={28} className="text-amber-400" />, text: 'Razonamiento Lateral' },
-      { icon: <UserCheck size={28} className="text-rose-400" />, text: 'Contexto Social Tácito' },
-      { icon: <BookOpen size={28} className="text-indigo-400" />, text: 'Responsabilidad Fiduciaria' }
+      { icon: <Lightbulb size={28} className="text-amber-400" />, text: 'Pensamiento abstracto' },
+      { icon: <UserCheck size={28} className="text-rose-400" />, text: 'Sentido común' },
+      { icon: <BookOpen size={28} className="text-indigo-400" />, text: 'Conocimiento empírico' }
     ],
-    footer: 'Aumentación Sistémica > Reemplazo Humano.',
+    footer: 'No reemplaza personas, potencia equipos. Libera tiempo para lo estratégico.',
     bg: TECH_BG,
     textColor: 'text-slate-100'
   },
   {
     id: 9,
     layout: 'questions',
-    title: 'Auditoría Interna',
-    subtitle: 'Preguntas de diagnóstico para la evaluación de madurez operativa:',
+    title: 'El Debate',
+    subtitle: 'Tres preguntas clave para reflexionar sobre la situación actual de cada uno',
     questions: [
-      'Identificar cuellos de botella: ¿Dónde está la latencia operativa mayor en su estructura?',
-      'Identificar SPOFs: ¿Cuántos procesos dependen de conocimiento no documentado?',
-      'Viabilidad: ¿Qué porcentaje de esas horas perdidas es técnica y financieramente automatizable HOY?'
+      '¿Pueden identificar los procesos que les generan "dolor"?',
+      '¿Cuántos de ustedes cuentan con una memoria institucional?',
+      '¿Cuántos de ustedes sienten que la IA puede aplicarse en su empresa?'
     ],
     bg: TECH_BG,
     textColor: 'text-slate-100'
@@ -152,10 +152,10 @@ const slidesData = [
   {
     id: 10,
     layout: 'conclusion',
-    title: 'El Up-Grade Necesario',
-    subtitle: 'La automatización dejó de ser una ventaja competitiva para convertirse en un requisito de subsistencia operativa.',
-    points: ['Sistematizar Operaciones', 'Delegar en Máquinas', 'Liderar Humanos'],
-    footer: 'El objetivo final de la tecnología es construir sistemas que funcionen cuando no estás mirando.',
+    title: 'El Momento de Cambiar',
+    subtitle: 'La pregunta no es si puedes permitirte la automatización. Es si puedes permitirte no hacerla.',
+    points: ['Soltar la operación', 'Enfocarse en liderar', 'Escalabilidad real'],
+    footer: 'El verdadero liderazgo no está en hacer más, sino en construir sistemas autónomos.',
     bg: TECH_BG,
     textColor: 'text-slate-100'
   }
