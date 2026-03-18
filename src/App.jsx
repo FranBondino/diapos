@@ -115,8 +115,7 @@ const slidesData = [
     q1: '¿Qué es?',
     a1: 'Un solo empleado, un solo sistema o un solo proceso que si falla, todo se detiene.',
     q2: '¿Qué pasa cuando la persona clave se enferma, se va de vacaciones o renuncia?',
-    alert: 'PUNTO ÚNICO DE FALLA: Romina es crucial para la integración. FALLA DEL SISTEMA',
-    image: spofImg,
+    alert: 'PUNTO ÚNICO DE FALLA: En empresas en crecimiento, muchas veces el punto único de falla es UNA persona.',
     bg: TECH_BG,
     textColor: 'text-slate-100'
   },
