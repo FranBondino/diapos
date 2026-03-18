@@ -10,9 +10,10 @@ import {
 } from 'lucide-react';
 
 import busFactorAltoImg from './assets/bus-factor-alto.png';
-import busFactorBajoImg from './assets/bus-factor-bajo-nuevo.png';
+import busFactorBajoImg from './assets/bus-factor-bajo-modificada.png';
 import arqueroImg from './assets/arquero.png';
 import spofImg from './assets/spof.png';
+import mujerIaImg from './assets/mujer_ia.png';
 
 // Common tech-corporate styling classes
 const TECH_BG = "bg-[#0B1120]"; // Very dark slate/blue
@@ -37,9 +38,9 @@ const slidesData = [
     title: 'La Paradoja del Crecimiento',
     subtitle: 'El éxito genera más trabajo manual, más fricción y más estrés operacional.',
     steps: [
-      { num: '1', title: 'Más ventas', desc: 'El objetivo que se persigue', icon: <TrendingUp className="text-blue-400" /> },
-      { num: '2', title: 'Más complejidad', desc: 'Procesos que ya no escalan', icon: <Activity className="text-amber-400" /> },
-      { num: '3', title: 'Procesos rotos', desc: 'Sistemas artesanales que colapsan', icon: <XCircle className="text-rose-400" /> }
+      { num: '1', title: 'Más ventas', desc: 'El objetivo que se persigue', icon: <TrendingUp className="text-white" /> },
+      { num: '2', title: 'Más complejidad', desc: 'Procesos que ya no escalan', icon: <Activity className="text-white" /> },
+      { num: '3', title: 'Procesos rotos', desc: 'Sistemas artesanales que colapsan', icon: <XCircle className="text-white" /> }
     ],
     bg: TECH_BG,
     textColor: 'text-slate-100'
@@ -221,9 +222,17 @@ const slidesData = [
     id: 12,
     layout: 'conclusion',
     title: 'El Momento de Cambiar',
-    subtitle: 'La pregunta no es si podés permitirte la automatización. Es si podés permitirte no hacerla.',
+    subtitle: 'La pregunta no es si podés permitirte la automatización.\nEs si podés permitirte no hacerla.',
     points: ['Soltar la operación', 'Enfocarse en liderar', 'Escalabilidad real'],
-    footer: 'El verdadero liderazgo no está en hacer más, sino en construir sistemas autónomos.',
+    bg: TECH_BG,
+    textColor: 'text-slate-100'
+  },
+  {
+    id: 13,
+    layout: 'impact_conclusion',
+    title: '',
+    subtitle: 'El verdadero liderazgo no está en hacer más, sino en construir sistemas autónomos.',
+    image: mujerIaImg,
     bg: TECH_BG,
     textColor: 'text-slate-100'
   }
@@ -248,10 +257,10 @@ const MotionContainer = ({ children, bg, textColor, className = "" }) => (
     animate={{ opacity: 1 }}
     exit={{ opacity: 0 }}
     transition={{ duration: 0.5, ease: "easeInOut" }}
-    className={`motion-section fixed inset-0 w-full h-[100dvh] flex flex-col items-center justify-start md:justify-center py-12 md:py-20 px-5 sm:px-12 md:px-24 ${bg} ${textColor || ''} overflow-y-auto overflow-x-hidden`}
+    className={`motion-section fixed inset-0 w-full h-[100dvh] flex flex-col items-center px-5 sm:px-12 md:px-24 ${bg} ${textColor || ''} overflow-y-auto overflow-x-hidden pt-8 sm:pt-12 pb-32`}
   >
     <TechGrid />
-    <div className={`max-w-6xl mx-auto w-full z-10 relative pt-10 pb-36 md:py-8 ${className}`}>
+    <div className={`max-w-6xl mx-auto w-full z-10 relative my-auto shrink-0 ${className}`}>
       {children}
     </div>
   </motion.section>
@@ -271,6 +280,7 @@ const SectionRenderer = ({ slide }) => {
   const isConclusion = slide.layout === 'conclusion';
   const isTitleCard = slide.layout === 'title_card';
   const isImageCaption = slide.layout === 'image_caption';
+  const isImpactConclusion = slide.layout === 'impact_conclusion';
 
   if (isTitleCard) {
     return (
@@ -361,7 +371,7 @@ const SectionRenderer = ({ slide }) => {
                 hidden: { opacity: 0, y: 20 },
                 visible: { opacity: 1, y: 0, transition: { delay: 0.3 + i * 0.1 } }
               }}
-              className={`${CARD_BG} p-6 sm:p-10 rounded-xl relative group transition-all duration-500 hover:border-amber-900/50`}
+              className={`${CARD_BG} p-5 sm:p-7 rounded-xl relative group transition-all duration-500 hover:border-amber-900/50`}
             >
               <div className={`absolute top-0 left-0 w-full h-1 ${slide.isCrisis ? 'bg-gradient-to-r from-amber-600 to-orange-500' : 'bg-gradient-to-r from-blue-600 to-cyan-500'} opacity-30 group-hover:opacity-100 transition-opacity`}></div>
 
@@ -376,10 +386,10 @@ const SectionRenderer = ({ slide }) => {
                 )}
               </div>
 
-              <h3 className="text-xl sm:text-2xl font-bold mb-4 sm:mb-6 text-white">{col.title}</h3>
-              <ul className="space-y-3 sm:space-y-4 mb-6 sm:mb-8">
+              <h3 className="text-xl sm:text-xl font-bold mb-3 sm:mb-4 text-white">{col.title}</h3>
+              <ul className="space-y-2 sm:space-y-3 mb-6 sm:mb-8">
                 {col.items.map((item, j) => (
-                  <li key={j} className="flex items-start gap-3 sm:gap-4 text-slate-400 text-sm sm:text-lg font-light leading-snug">
+                  <li key={j} className="flex items-start gap-3 sm:gap-4 text-slate-400 text-xs sm:text-base font-light leading-snug">
                     <span className={`mt-1 sm:mt-1.5 font-mono text-xs sm:text-sm ${slide.isCrisis ? 'text-amber-500' : 'text-blue-500'}`}>›</span>
                     <span>{item}</span>
                   </li>
@@ -441,7 +451,8 @@ const SectionRenderer = ({ slide }) => {
           <p className="text-lg sm:text-2xl text-slate-400 max-w-4xl font-light leading-snug">{slide.subtitle}</p>
         </motion.div>
 
-        <div className="relative w-full max-w-2xl h-64 sm:h-80 mx-auto my-8 sm:my-16 flex items-center justify-center pointer-events-none">
+        <div className="flex flex-col md:flex-row items-center justify-between gap-8 md:gap-12 w-full text-center md:text-left">
+          <div className="relative w-full max-w-lg h-64 sm:h-80 flex items-center justify-center pointer-events-none shrink-0">
           {/* Central Node (The Human Bottleneck) */}
           <motion.div
             animate={{
@@ -504,19 +515,20 @@ const SectionRenderer = ({ slide }) => {
           })}
         </div>
 
-        <motion.div
-          initial={{ y: 20, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          transition={{ delay: 2.2, duration: 0.8 }}
-          className="w-full max-w-5xl bg-rose-950/20 border-l-4 border-rose-500 p-6 rounded-r-xl flex items-center gap-6 mt-8 sm:mt-0"
-        >
-          <div className="p-3 bg-rose-500/10 rounded-full">
-            <AlertOctagon className="text-rose-500" size={24} />
-          </div>
-          <p className="text-rose-100 font-medium text-base sm:text-xl leading-relaxed italic">
-            "{slide.alert}"
-          </p>
-        </motion.div>
+          <motion.div
+            initial={{ y: 20, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ delay: 2.2, duration: 0.8 }}
+            className="w-full max-w-md bg-rose-950/20 border-l-4 border-rose-500 p-6 rounded-r-xl flex items-center gap-6 mt-8 lg:mt-0"
+          >
+            <div className="p-3 bg-rose-500/10 rounded-full shrink-0">
+              <AlertOctagon className="text-rose-500" size={24} />
+            </div>
+            <p className="text-rose-100 font-medium text-base sm:text-lg leading-relaxed italic">
+              "{slide.alert}"
+            </p>
+          </motion.div>
+        </div>
       </MotionContainer>
     );
   }
@@ -741,8 +753,8 @@ const SectionRenderer = ({ slide }) => {
             <div className="inline-flex items-center gap-3 mb-6 sm:mb-8 bg-emerald-950/30 border border-emerald-900/50 px-3 sm:px-4 py-1 sm:py-1.5 rounded-full text-emerald-400 text-xs sm:text-sm font-mono uppercase tracking-widest">
               Siguientes Pasos
             </div>
-            <h2 className={`text-4xl sm:text-6xl md:text-8xl font-black tracking-tighter mb-6 sm:mb-8 ${HIGHLIGHT_TEXT}`}>{slide.title}</h2>
-            <p className="text-xl sm:text-2xl md:text-3xl text-slate-400 font-light leading-snug mb-8 sm:mb-16">{slide.subtitle}</p>
+            <h2 className={`text-3xl sm:text-6xl md:text-8xl font-black tracking-tighter mb-4 sm:mb-8 ${HIGHLIGHT_TEXT}`}>{slide.title}</h2>
+            <p className="text-lg sm:text-2xl md:text-3xl text-slate-400 font-light leading-snug mb-8 sm:mb-16 whitespace-pre-line px-4">{slide.subtitle}</p>
           </motion.div>
 
           <div className="flex flex-wrap justify-center gap-3 sm:gap-4 md:gap-6 mb-12 sm:mb-20">
@@ -776,7 +788,7 @@ const SectionRenderer = ({ slide }) => {
     return (
       <MotionContainer bg={slide.bg} textColor={slide.textColor} className="flex flex-col items-center">
         <motion.div initial="hidden" animate="visible" variants={fadeUpVariants} className="text-center mb-12">
-          <h2 className="text-4xl sm:text-5xl md:text-7xl font-bold tracking-tight mb-6 sm:mb-8 text-slate-100">{slide.title}</h2>
+          {slide.title && <h2 className="text-4xl sm:text-5xl md:text-7xl font-bold tracking-tight mb-6 sm:mb-8 text-slate-100">{slide.title}</h2>}
           <p className="text-xl sm:text-2xl md:text-4xl text-blue-400 font-light italic">
             "{slide.subtitle}"
           </p>
@@ -788,8 +800,37 @@ const SectionRenderer = ({ slide }) => {
           transition={{ delay: 0.4, duration: 0.8 }}
           className="relative max-w-4xl w-full rounded-2xl overflow-hidden border border-slate-800 shadow-2xl"
         >
-          <img src={slide.image} alt={slide.title} className="w-full h-auto object-cover" />
+          <img src={slide.image} alt={slide.title} className="w-full max-h-[50vh] object-cover object-center" />
           <div className="absolute inset-0 bg-gradient-to-t from-[#0B1120] via-transparent to-transparent opacity-40"></div>
+        </motion.div>
+      </MotionContainer>
+    );
+  }
+
+  if (isImpactConclusion) {
+    return (
+      <MotionContainer bg={slide.bg} textColor={slide.textColor} className="flex flex-col items-center w-full">
+        <motion.div initial="hidden" animate="visible" variants={fadeUpVariants} className="text-center mb-10 w-full max-w-5xl px-4">
+          <div className="w-full flex justify-center mb-6">
+             <div className="w-16 sm:w-24 h-px bg-gradient-to-r from-transparent via-cyan-400 to-transparent shadow-[0_0_10px_rgba(34,211,238,0.8)]"></div>
+          </div>
+          <p className="text-xl sm:text-4xl md:text-5xl font-black leading-tight text-transparent bg-clip-text bg-gradient-to-r from-slate-200 via-white to-cyan-100 tracking-tight text-balance">
+            "{slide.subtitle}"
+          </p>
+          <div className="w-full flex justify-center mt-6">
+             <div className="w-16 sm:w-24 h-px bg-gradient-to-r from-transparent via-cyan-400 to-transparent shadow-[0_0_10px_rgba(34,211,238,0.8)]"></div>
+          </div>
+        </motion.div>
+
+          <motion.div
+            initial={{ scale: 0.9, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            transition={{ delay: 0.5, duration: 1 }}
+            className="relative w-full sm:w-[85vw] h-[35vh] sm:h-[50vh] rounded-2xl overflow-hidden border-4 border-cyan-500/30 shadow-[0_0_50px_rgba(6,182,212,0.2)]"
+          >
+          <div className="absolute inset-0 bg-cyan-500/10 mix-blend-overlay group-hover:bg-transparent transition-colors duration-1000 z-10 pointer-events-none"></div>
+          <img src={slide.image} alt={slide.subtitle} className="w-full max-h-[45vh] lg:max-h-[50vh] object-cover object-[center_20%] transform transition-transform duration-[15s] ease-out hover:scale-[1.03]" />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#0B1120] via-[#0B1120]/10 to-transparent opacity-60 z-0 pointer-events-none"></div>
         </motion.div>
       </MotionContainer>
     );
@@ -862,34 +903,7 @@ export default function App() {
       onTouchMove={onTouchMove}
       onTouchEnd={onTouchEnd}
     >
-      {/* Top Bar Area */}
-      <div className="fixed top-0 left-0 right-0 h-14 sm:h-16 border-b border-[#1E293B] bg-[#0B1120]/80 backdrop-blur-md z-50 flex items-center justify-between px-4 sm:px-8">
-        <div className="flex items-center gap-2 sm:gap-3 max-w-[65%] sm:max-w-[50%] overflow-hidden">
-          <div className="w-4 h-4 sm:w-5 sm:h-5 rounded bg-gradient-to-br from-blue-500 to-cyan-400 shrink-0"></div>
-          <span className="font-bold text-[9px] sm:text-xs tracking-wider text-slate-300 uppercase truncate">
-            {slidesData[0].title}
-          </span>
-        </div>
-        <div className="flex items-center gap-4 sm:gap-6">
-          <button
-            onClick={() => {
-              setIsPrintMode(true);
-              setTimeout(() => {
-                window.print();
-              }, 500);
-            }}
-            className="flex items-center gap-2 text-slate-400 hover:text-blue-400 transition-colors group"
-            title="Exportar a PDF (para Google Slides/Canva)"
-          >
-            <Printer size={18} className="group-hover:scale-110 transition-transform" />
-            <span className="hidden sm:inline text-xs font-mono tracking-widest uppercase">PDF</span>
-          </button>
-          <div className="font-mono text-xs tracking-widest text-slate-500">
-            SLIDE_{String(currentSlide + 1).padStart(2, '0')} / {String(slidesData.length).padStart(2, '0')}
-          </div>
-        </div>
-      </div>
-
+      {/* Main Content */}
       {isPrintMode ? (
         <div className="print-view bg-[#0B1120] min-h-screen">
           {slidesData.map((slide) => (
@@ -905,21 +919,22 @@ export default function App() {
       )}
 
       {/* Manual Controls for easy clicking / Canva prepping */}
-      <div className="fixed bottom-6 sm:bottom-8 left-1/2 -translate-x-1/2 z-50 flex items-center gap-2 sm:gap-6 bg-[#0B1120]/90 border border-[#1E293B] shadow-2xl px-3 sm:px-6 py-2 sm:py-3 rounded-full backdrop-blur-md w-[90%] sm:w-auto justify-center">
+      {!isPrintMode && (
+      <div className="print:hidden fixed bottom-4 left-1/2 -translate-x-1/2 z-50 flex items-center gap-1 sm:gap-4 bg-[#0B1120]/40 border border-slate-800/30 shadow-lg px-3 sm:px-5 py-1.5 sm:py-2 rounded-full backdrop-blur-sm w-auto justify-center">
         <button
           onClick={prevSlide}
           disabled={currentSlide === 0}
-          className="text-slate-400 hover:text-white transition-colors disabled:opacity-30 disabled:cursor-not-allowed p-1 sm:p-2 shrink-0"
+          className="text-slate-500 hover:text-white transition-colors disabled:opacity-20 disabled:cursor-not-allowed p-1 shrink-0"
         >
-          <ChevronLeft className="w-5 h-5 sm:w-6 sm:h-6" />
+          <ChevronLeft className="w-4 h-4 sm:w-5 sm:h-5" />
         </button>
 
-        <div className="flex gap-1.5 sm:gap-2 items-center overflow-x-auto no-scrollbar py-1">
+        <div className="flex gap-1 sm:gap-1.5 items-center py-1 px-1">
           {slidesData.map((_, i) => (
             <button
               key={i}
               onClick={() => setCurrentSlide(i)}
-              className={`rounded-full transition-all shrink-0 ${i === currentSlide ? 'bg-cyan-400 w-4 sm:w-6 h-2 sm:h-2.5' : 'bg-slate-700 w-2 sm:w-2.5 h-2 sm:h-2.5'}`}
+              className={`rounded-full transition-all shrink-0 ${i === currentSlide ? 'bg-cyan-500/80 w-3 sm:w-4 h-1.5' : 'bg-slate-800/60 w-1.5 h-1.5'}`}
               aria-label={`Go to slide ${i + 1}`}
             />
           ))}
@@ -928,11 +943,12 @@ export default function App() {
         <button
           onClick={nextSlide}
           disabled={currentSlide === slidesData.length - 1}
-          className="text-slate-400 hover:text-white transition-colors disabled:opacity-30 disabled:cursor-not-allowed p-1 sm:p-2 shrink-0"
+          className="text-slate-500 hover:text-white transition-colors disabled:opacity-20 disabled:cursor-not-allowed p-1 shrink-0"
         >
-          <ChevronRight className="w-5 h-5 sm:w-6 sm:h-6" />
+          <ChevronRight className="w-4 h-4 sm:w-5 sm:h-5" />
         </button>
       </div>
+      )}
     </div>
   );
 }
