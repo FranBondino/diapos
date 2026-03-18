@@ -16,8 +16,7 @@ import spofImg from './assets/spof.png';
 
 // Common tech-corporate styling classes
 const TECH_BG = "bg-[#0B1120]"; // Very dark slate/blue
-const CARD_BG = "bg-[#111827]/80 backdrop-blur-md border border-[#1E293B] shadow-[0_4px_24px_-8px_rgba(0,0,0,0.5)]";
-const HIGHLIGHT_TEXT = "text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-400";
+const HIGHLIGHT_TEXT = "text-blue-400 sm:text-transparent sm:bg-clip-text sm:bg-gradient-to-r sm:from-blue-400 sm:to-cyan-400";
 const ACCENT_COLOR = "text-blue-400";
 const SECONDARY_ACCENT = "text-cyan-400";
 
@@ -252,10 +251,10 @@ const MotionContainer = ({ children, bg, textColor, className = "" }) => (
     animate={{ opacity: 1 }}
     exit={{ opacity: 0 }}
     transition={{ duration: 0.5, ease: "easeInOut" }}
-    className={`fixed inset-0 w-full h-full flex flex-col justify-center py-12 md:py-20 px-4 sm:px-12 md:px-24 ${bg} ${textColor || ''} overflow-y-auto overflow-x-hidden`}
+    className={`fixed inset-0 w-full h-full flex flex-col items-center justify-start md:justify-center py-16 md:py-20 px-4 sm:px-12 md:px-24 ${bg} ${textColor || ''} overflow-y-auto overflow-x-hidden`}
   >
     <TechGrid />
-    <div className={`max-w-6xl mx-auto w-full z-10 relative py-4 md:py-8 ${className}`}>
+    <div className={`max-w-6xl mx-auto w-full z-10 relative pt-8 pb-32 md:py-8 ${className}`}>
       {children}
     </div>
   </motion.section>
@@ -352,8 +351,8 @@ const SectionRenderer = ({ slide }) => {
           <div className={`inline-flex items-center gap-3 mb-4 sm:mb-6 ${slide.isCrisis ? 'bg-amber-950/30 border-amber-900/50 text-amber-500' : 'bg-blue-950/30 border-blue-900/50 text-blue-400'} border px-3 sm:px-4 py-1 sm:py-1.5 rounded-full text-xs sm:text-sm font-mono uppercase tracking-widest`}>
             <Fingerprint size={slide.isCrisis ? 14 : 16} /> {slide.isCrisis ? 'Sanción Operativa' : 'Estructura de Costos'}
           </div>
-          <h2 className={`text-3xl sm:text-5xl md:text-7xl font-bold tracking-tight mb-4 sm:mb-6 text-slate-100`}>{slide.title}</h2>
-          <p className="text-lg sm:text-xl md:text-2xl text-slate-400 max-w-5xl font-light leading-snug">{slide.subtitle}</p>
+          <h2 className={`text-2xl sm:text-5xl md:text-7xl font-bold tracking-tight mb-4 sm:mb-6 text-slate-100`}>{slide.title}</h2>
+          <p className="text-base sm:text-xl md:text-2xl text-slate-400 max-w-5xl font-light leading-snug">{slide.subtitle}</p>
         </motion.div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 sm:gap-8 max-w-6xl w-full">
@@ -664,7 +663,7 @@ const SectionRenderer = ({ slide }) => {
 
   if (isQuestions) {
     return (
-      <MotionContainer bg={slide.bg} textColor={slide.textColor} className="flex flex-col justify-center max-w-5xl mx-auto">
+      <MotionContainer bg={slide.bg} textColor={slide.textColor} className="flex flex-col md:justify-center max-w-5xl mx-auto">
         <motion.div initial="hidden" animate="visible" variants={fadeUpVariants} className="mb-16">
           <div className="inline-flex items-center gap-3 mb-6 bg-indigo-950/30 border border-indigo-900/50 px-4 py-1.5 rounded-full text-indigo-400 text-sm font-mono uppercase tracking-widest">
             <Target size={16} /> Evaluación
