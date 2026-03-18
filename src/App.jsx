@@ -252,10 +252,10 @@ const MotionContainer = ({ children, bg, textColor, className = "" }) => (
     animate={{ opacity: 1 }}
     exit={{ opacity: 0 }}
     transition={{ duration: 0.5, ease: "easeInOut" }}
-    className={`fixed inset-0 w-full h-full flex flex-col justify-center py-20 px-6 sm:px-12 md:px-24 ${bg} ${textColor || ''} overflow-hidden`}
+    className={`fixed inset-0 w-full h-full flex flex-col justify-center py-12 md:py-20 px-4 sm:px-12 md:px-24 ${bg} ${textColor || ''} overflow-y-auto overflow-x-hidden`}
   >
     <TechGrid />
-    <div className={`max-w-6xl mx-auto w-full z-10 relative ${className}`}>
+    <div className={`max-w-6xl mx-auto w-full z-10 relative py-4 md:py-8 ${className}`}>
       {children}
     </div>
   </motion.section>
@@ -285,18 +285,18 @@ const SectionRenderer = ({ slide }) => {
           variants={fadeUpVariants}
           className="relative z-10 w-full max-w-5xl flex flex-col items-center space-y-12"
         >
-          <div className="space-y-8">
-            <h1 className="text-5xl md:text-7xl font-black tracking-tight leading-[1.1] drop-shadow-sm max-w-4xl mx-auto">
+          <div className="space-y-6 sm:space-y-8">
+            <h1 className="text-3xl sm:text-5xl md:text-7xl font-black tracking-tight leading-[1.1] drop-shadow-sm max-w-4xl mx-auto">
               {slide.title}
             </h1>
-            <div className={`h-1.5 w-48 bg-gradient-to-r from-blue-500 to-cyan-400 mx-auto rounded-full`}></div>
+            <div className={`h-1 w-24 sm:h-1.5 sm:w-48 bg-gradient-to-r from-blue-500 to-cyan-400 mx-auto rounded-full`}></div>
           </div>
 
-          <div className="space-y-4 pt-8">
-            <h3 className="text-3xl md:text-5xl font-bold text-slate-100 italic">
+          <div className="space-y-2 sm:space-y-4 pt-4 sm:pt-8">
+            <h3 className="text-2xl sm:text-3xl md:text-5xl font-bold text-slate-100 italic">
               {slide.presenter}
             </h3>
-            <p className="text-xl md:text-2xl text-slate-400 font-light tracking-[0.2em] uppercase">
+            <p className="text-base sm:text-xl md:text-2xl text-slate-400 font-light tracking-[0.1em] sm:tracking-[0.2em] uppercase">
               {slide.position}
             </p>
           </div>
@@ -308,16 +308,16 @@ const SectionRenderer = ({ slide }) => {
   if (isIntro) {
     return (
       <MotionContainer bg={slide.bg} textColor={slide.textColor}>
-        <motion.div initial="hidden" animate="visible" variants={fadeUpVariants} className="border-l-2 border-blue-500 pl-8 mb-12">
-          <h1 className={`text-6xl md:text-8xl font-black tracking-tighter mb-6 ${HIGHLIGHT_TEXT}`}>
+        <motion.div initial="hidden" animate="visible" variants={fadeUpVariants} className="border-l-2 border-blue-500 pl-4 sm:pl-8 mb-8 sm:mb-12">
+          <h1 className={`text-4xl sm:text-6xl md:text-8xl font-black tracking-tighter mb-4 sm:mb-6 ${HIGHLIGHT_TEXT}`}>
             {slide.title}
           </h1>
-          <p className="text-2xl md:text-3xl font-light text-slate-400 max-w-4xl">
+          <p className="text-lg sm:text-2xl md:text-3xl font-light text-slate-400 max-w-4xl">
             {slide.subtitle}
           </p>
         </motion.div>
 
-        <motion.div className="grid md:grid-cols-3 gap-6 w-full max-w-6xl mt-8">
+        <motion.div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6 w-full max-w-6xl mt-4 sm:mt-8">
           {slide.steps.map((step, i) => (
             <motion.div
               key={i}
@@ -326,17 +326,17 @@ const SectionRenderer = ({ slide }) => {
                 hidden: { opacity: 0, scale: 0.95 },
                 visible: { opacity: 1, scale: 1, transition: { delay: 0.2 + i * 0.1 } }
               }}
-              className={`${CARD_BG} p-8 rounded-xl flex flex-col gap-6 relative overflow-hidden group`}
+              className={`${CARD_BG} p-6 sm:p-8 rounded-xl flex flex-col gap-4 sm:gap-6 relative overflow-hidden group`}
             >
-              <div className="absolute top-0 right-0 p-4 opacity-10 font-mono text-6xl tracking-tighter mix-blend-overlay group-hover:scale-110 transition-transform">
+              <div className="absolute top-0 right-0 p-4 opacity-10 font-mono text-4xl sm:text-6xl tracking-tighter mix-blend-overlay group-hover:scale-110 transition-transform">
                 {step.num}
               </div>
               <div className="flex items-center gap-4 border-b border-[#1E293B] pb-4">
-                <div className="p-3 bg-blue-950/30 rounded-lg border border-blue-900/50">{step.icon}</div>
-                <h3 className="text-xl font-bold text-slate-200">{step.title}</h3>
+                <div className="p-2 sm:p-3 bg-blue-950/30 rounded-lg border border-blue-900/50 scale-90 sm:scale-100">{step.icon}</div>
+                <h3 className="text-lg sm:text-xl font-bold text-slate-200">{step.title}</h3>
               </div>
               <div>
-                <p className="text-base text-slate-400 leading-relaxed font-light">{step.desc}</p>
+                <p className="text-sm sm:text-base text-slate-400 leading-relaxed font-light">{step.desc}</p>
               </div>
             </motion.div>
           ))}
@@ -348,15 +348,15 @@ const SectionRenderer = ({ slide }) => {
   if (isColumns) {
     return (
       <MotionContainer bg={slide.bg} textColor={slide.textColor}>
-        <motion.div initial="hidden" animate="visible" variants={fadeUpVariants} className="mb-16">
-          <div className={`inline-flex items-center gap-3 mb-6 ${slide.isCrisis ? 'bg-amber-950/30 border-amber-900/50 text-amber-500' : 'bg-blue-950/30 border-blue-900/50 text-blue-400'} border px-4 py-1.5 rounded-full text-sm font-mono uppercase tracking-widest`}>
-            <Fingerprint size={16} /> {slide.isCrisis ? 'Sanción Operativa' : 'Estructura de Costos'}
+        <motion.div initial="hidden" animate="visible" variants={fadeUpVariants} className="mb-8 sm:mb-16">
+          <div className={`inline-flex items-center gap-3 mb-4 sm:mb-6 ${slide.isCrisis ? 'bg-amber-950/30 border-amber-900/50 text-amber-500' : 'bg-blue-950/30 border-blue-900/50 text-blue-400'} border px-3 sm:px-4 py-1 sm:py-1.5 rounded-full text-xs sm:text-sm font-mono uppercase tracking-widest`}>
+            <Fingerprint size={slide.isCrisis ? 14 : 16} /> {slide.isCrisis ? 'Sanción Operativa' : 'Estructura de Costos'}
           </div>
-          <h2 className={`text-5xl md:text-7xl font-bold tracking-tight mb-6 text-slate-100`}>{slide.title}</h2>
-          <p className="text-xl md:text-2xl text-slate-400 max-w-5xl font-light">{slide.subtitle}</p>
+          <h2 className={`text-3xl sm:text-5xl md:text-7xl font-bold tracking-tight mb-4 sm:mb-6 text-slate-100`}>{slide.title}</h2>
+          <p className="text-lg sm:text-xl md:text-2xl text-slate-400 max-w-5xl font-light leading-snug">{slide.subtitle}</p>
         </motion.div>
 
-        <div className="grid md:grid-cols-3 gap-8 max-w-6xl w-full">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 sm:gap-8 max-w-6xl w-full">
           {slide.cols.map((col, i) => (
             <motion.div
               key={i}
@@ -365,38 +365,30 @@ const SectionRenderer = ({ slide }) => {
                 hidden: { opacity: 0, y: 20 },
                 visible: { opacity: 1, y: 0, transition: { delay: 0.3 + i * 0.1 } }
               }}
-              className={`${CARD_BG} p-10 rounded-xl relative group transition-all duration-500 hover:border-amber-900/50`}
+              className={`${CARD_BG} p-6 sm:p-10 rounded-xl relative group transition-all duration-500 hover:border-amber-900/50`}
             >
               <div className={`absolute top-0 left-0 w-full h-1 ${slide.isCrisis ? 'bg-gradient-to-r from-amber-600 to-orange-500' : 'bg-gradient-to-r from-blue-600 to-cyan-500'} opacity-30 group-hover:opacity-100 transition-opacity`}></div>
 
-              <div className="flex justify-between items-start mb-8">
-                <div className={`${slide.isCrisis ? 'bg-amber-950/40 border-amber-800/40' : 'bg-[#1E293B]/50 border-[#334155]'} w-14 h-14 rounded-lg flex items-center justify-center border transition-colors`}>
-                  {col.icon}
+              <div className="flex justify-between items-start mb-6 sm:mb-8">
+                <div className={`${slide.isCrisis ? 'bg-amber-950/40 border-amber-800/40' : 'bg-[#1E293B]/50 border-[#334155]'} w-12 h-12 sm:w-14 sm:h-14 rounded-lg flex items-center justify-center border transition-colors`}>
+                  {React.cloneElement(col.icon, { size: 20 })}
                 </div>
                 {col.impact && (
-                  <div className="bg-amber-500/10 border border-amber-500/20 px-3 py-1 rounded-md text-[10px] uppercase tracking-tighter text-amber-500 font-bold">
+                  <div className="bg-amber-500/10 border border-amber-500/20 px-2 sm:px-3 py-1 rounded-md text-[9px] sm:text-[10px] uppercase tracking-tighter text-amber-500 font-bold">
                     {col.impact}
                   </div>
                 )}
               </div>
 
-              <h3 className="text-2xl font-bold mb-6 text-white">{col.title}</h3>
-              <ul className="space-y-4 mb-8">
+              <h3 className="text-xl sm:text-2xl font-bold mb-4 sm:mb-6 text-white">{col.title}</h3>
+              <ul className="space-y-3 sm:space-y-4 mb-6 sm:mb-8">
                 {col.items.map((item, j) => (
-                  <li key={j} className="flex items-start gap-4 text-slate-400 text-base md:text-lg font-light leading-snug">
-                    <span className={`mt-1.5 font-mono text-sm ${slide.isCrisis ? 'text-amber-500' : 'text-blue-500'}`}>›</span>
+                  <li key={j} className="flex items-start gap-3 sm:gap-4 text-slate-400 text-sm sm:text-lg font-light leading-snug">
+                    <span className={`mt-1 sm:mt-1.5 font-mono text-xs sm:text-sm ${slide.isCrisis ? 'text-amber-500' : 'text-blue-500'}`}>›</span>
                     <span>{item}</span>
                   </li>
                 ))}
               </ul>
-
-              {slide.isCrisis && (
-                <div className="pt-4 border-t border-[#1E293B] opacity-50 group-hover:opacity-100 transition-opacity">
-                  <p className="text-[11px] font-mono text-slate-500 uppercase tracking-widest">
-                    // Riesgo de Escalabilidad
-                  </p>
-                </div>
-              )}
             </motion.div>
           ))}
         </div>
@@ -406,34 +398,34 @@ const SectionRenderer = ({ slide }) => {
 
   if (isStats) {
     return (
-      <MotionContainer bg={slide.bg} textColor={slide.textColor} className="flex flex-col md:flex-row md:items-center gap-16">
+      <MotionContainer bg={slide.bg} textColor={slide.textColor} className="flex flex-col md:flex-row md:items-center gap-8 sm:gap-16">
         <motion.div initial="hidden" animate="visible" variants={fadeUpVariants} className="md:w-1/2">
-          <div className="inline-flex items-center gap-3 mb-6 bg-cyan-950/30 border border-cyan-900/50 px-4 py-1.5 rounded-full text-cyan-400 text-sm font-mono uppercase tracking-widest">
-            <Calculator size={16} /> Análisis Cuantitativo
+          <div className="inline-flex items-center gap-3 mb-4 sm:mb-6 bg-cyan-950/30 border border-cyan-900/50 px-3 sm:px-4 py-1 sm:py-1.5 rounded-full text-cyan-400 text-xs sm:text-sm font-mono uppercase tracking-widest">
+            <Calculator size={14} /> Análisis Cuantitativo
           </div>
-          <h2 className="text-5xl md:text-7xl font-bold tracking-tight mb-8 leading-tight text-slate-100">{slide.title}</h2>
-          <p className="text-2xl font-medium text-slate-300 mb-8 leading-snug font-light">{slide.subtitle}</p>
-          <div className="bg-[#111827] border-l-4 border-blue-500 p-6 rounded-r-lg">
-            <p className="text-lg text-slate-400 leading-relaxed font-mono text-sm">{slide.text}</p>
+          <h2 className="text-3xl sm:text-5xl md:text-7xl font-bold tracking-tight mb-4 sm:mb-8 leading-tight text-slate-100">{slide.title}</h2>
+          <p className="text-lg sm:text-2xl font-medium text-slate-300 mb-4 sm:mb-8 leading-snug font-light">{slide.subtitle}</p>
+          <div className="bg-[#111827] border-l-4 border-blue-500 p-4 sm:p-6 rounded-r-lg">
+            <p className="text-sm sm:text-lg text-slate-400 leading-relaxed font-mono">{slide.text}</p>
           </div>
         </motion.div>
-        <div className="md:w-1/2 grid gap-6">
+        <div className="md:w-1/2 grid gap-4 sm:gap-6">
           {slide.stats.map((stat, i) => (
             <motion.div
               key={i}
               initial={{ x: 50, opacity: 0 }}
               animate={{ x: 0, opacity: 1 }}
               transition={{ delay: 0.4 + i * 0.2 }}
-              className={`${CARD_BG} p-8 rounded-xl flex items-center gap-8`}
+              className={`${CARD_BG} p-6 sm:p-8 rounded-xl flex items-center gap-4 sm:gap-8`}
             >
-              <div className="w-[40%] text-right">
-                <div className={`text-5xl md:text-7xl font-black ${HIGHLIGHT_TEXT} tracking-tighter whitespace-nowrap`}>
+              <div className="w-[35%] sm:w-[40%] text-right overflow-hidden">
+                <div className={`text-4xl sm:text-5xl md:text-7xl font-black ${HIGHLIGHT_TEXT} tracking-tighter whitespace-nowrap`}>
                   {stat.value}
                 </div>
               </div>
-              <div className="w-[60%] border-l border-[#1E293B] pl-8">
-                <h3 className="text-xl font-bold text-white mb-2">{stat.label}</h3>
-                <p className="text-sm text-slate-400 font-light">{stat.desc}</p>
+              <div className="w-[65%] sm:w-[60%] border-l border-[#1E293B] pl-4 sm:pl-8">
+                <h3 className="text-lg sm:text-xl font-bold text-white mb-1 sm:mb-2">{stat.label}</h3>
+                <p className="text-[10px] sm:text-sm text-slate-400 font-light leading-tight">{stat.desc}</p>
               </div>
             </motion.div>
           ))}
@@ -490,25 +482,25 @@ const SectionRenderer = ({ slide }) => {
   if (isBusFactorComparison) {
     return (
       <MotionContainer bg={slide.bg} textColor={slide.textColor}>
-        <motion.div initial="hidden" animate="visible" variants={fadeUpVariants} className="mb-16 text-center">
-          <div className="inline-flex items-center gap-3 mb-6 bg-indigo-950/30 border border-indigo-900/50 px-4 py-1.5 rounded-full text-indigo-400 text-sm font-mono uppercase tracking-widest">
-            <Bus size={16} /> Métrica de Continuidad
+        <motion.div initial="hidden" animate="visible" variants={fadeUpVariants} className="mb-8 sm:mb-16 text-center">
+          <div className="inline-flex items-center gap-3 mb-4 sm:mb-6 bg-indigo-950/30 border border-indigo-900/50 px-3 sm:px-4 py-1 sm:py-1.5 rounded-full text-indigo-400 text-xs sm:text-sm font-mono uppercase tracking-widest">
+            <Bus size={14} /> Métrica de Continuidad
           </div>
-          <h2 className="text-5xl md:text-7xl font-bold tracking-tight mb-6 text-slate-100">{slide.title}</h2>
-          <p className="text-xl md:text-2xl text-slate-400 max-w-4xl mx-auto font-light">{slide.subtitle}</p>
+          <h2 className="text-3xl sm:text-5xl md:text-7xl font-bold tracking-tight mb-4 sm:mb-6 text-slate-100">{slide.title}</h2>
+          <p className="text-lg sm:text-xl md:text-2xl text-slate-400 max-w-4xl mx-auto font-light">{slide.subtitle}</p>
         </motion.div>
 
-        <div className="grid md:grid-cols-2 gap-12 w-full max-w-6xl mx-auto mb-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-12 w-full max-w-6xl mx-auto mb-12">
           {/* BUS FACTOR ALTO (BAD) */}
-          <motion.div initial={{ opacity: 0, x: -50 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.4 }} className={`${CARD_BG} p-10 rounded-xl relative overflow-hidden border border-rose-900/30 shadow-[0_0_30px_-10px_rgba(244,63,94,0.15)]`}>
-            <div className="absolute top-0 right-0 w-2 h-full bg-rose-500/50"></div>
-            <div className="flex items-center gap-6 mb-8 border-b border-[#1E293B] pb-6">
-              <div className="bg-rose-950/50 p-4 rounded-full text-rose-500 border border-rose-900/50 shadow-inner">
-                <XCircle size={40} strokeWidth={2.5} />
+          <motion.div initial={{ opacity: 0, x: -50 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.4 }} className={`${CARD_BG} p-6 sm:p-10 rounded-xl relative overflow-hidden border border-rose-900/30 shadow-[0_0_30px_-10px_rgba(244,63,94,0.15)]`}>
+            <div className="absolute top-0 right-0 w-1.5 sm:w-2 h-full bg-rose-500/50"></div>
+            <div className="flex items-center gap-4 sm:gap-6 mb-6 sm:mb-8 border-b border-[#1E293B] pb-4 sm:pb-6">
+              <div className="bg-rose-950/50 p-3 sm:p-4 rounded-full text-rose-500 border border-rose-900/50 shadow-inner scale-90 sm:scale-100">
+                <XCircle size={32} sm:size={40} strokeWidth={2.5} />
               </div>
-              <h3 className="text-3xl font-black text-rose-100 tracking-tight">{slide.bad.title}</h3>
+              <h3 className="text-2xl sm:text-3xl font-black text-rose-100 tracking-tight">{slide.bad.title}</h3>
             </div>
-            <p className="text-slate-300 text-xl font-light leading-relaxed mb-8">{slide.bad.desc}</p>
+            <p className="text-slate-300 text-lg sm:text-xl font-light leading-relaxed mb-6 sm:mb-8">{slide.bad.desc}</p>
             <div className="rounded-xl overflow-hidden border border-[#1E293B] shadow-2xl relative group">
               <div className="absolute inset-0 bg-rose-500/10 mix-blend-overlay group-hover:bg-transparent transition-colors duration-500"></div>
               <img src={slide.bad.image} alt="Bus Factor Alto" className="w-full h-auto object-cover transform group-hover:scale-105 transition-transform duration-700" />
@@ -516,15 +508,15 @@ const SectionRenderer = ({ slide }) => {
           </motion.div>
 
           {/* BUS FACTOR BAJO (GOOD) */}
-          <motion.div initial={{ opacity: 0, x: 50 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.6 }} className={`${CARD_BG} p-10 rounded-xl relative overflow-hidden border border-emerald-900/30 shadow-[0_0_30px_-10px_rgba(16,185,129,0.15)]`}>
-            <div className="absolute top-0 right-0 w-2 h-full bg-emerald-500/50"></div>
-            <div className="flex items-center gap-6 mb-8 border-b border-[#1E293B] pb-6">
-              <div className="bg-emerald-950/50 p-4 rounded-full text-emerald-500 border border-emerald-900/50 shadow-inner">
-                <CheckCircle2 size={40} strokeWidth={2.5} />
+          <motion.div initial={{ opacity: 0, x: 50 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.6 }} className={`${CARD_BG} p-6 sm:p-10 rounded-xl relative overflow-hidden border border-emerald-900/30 shadow-[0_0_30px_-10px_rgba(16,185,129,0.15)]`}>
+            <div className="absolute top-0 right-0 w-1.5 sm:w-2 h-full bg-emerald-500/50"></div>
+            <div className="flex items-center gap-4 sm:gap-6 mb-6 sm:mb-8 border-b border-[#1E293B] pb-4 sm:pb-6">
+              <div className="bg-emerald-950/50 p-3 sm:p-4 rounded-full text-emerald-500 border border-emerald-900/50 shadow-inner scale-90 sm:scale-100">
+                <CheckCircle2 size={32} sm:size={40} strokeWidth={2.5} />
               </div>
-              <h3 className="text-3xl font-black text-emerald-100 tracking-tight">{slide.good.title}</h3>
+              <h3 className="text-2xl sm:text-3xl font-black text-emerald-100 tracking-tight">{slide.good.title}</h3>
             </div>
-            <p className="text-slate-300 text-xl font-light leading-relaxed mb-8">{slide.good.desc}</p>
+            <p className="text-slate-300 text-lg sm:text-xl font-light leading-relaxed mb-6 sm:mb-8">{slide.good.desc}</p>
             <div className="rounded-xl overflow-hidden border border-[#1E293B] shadow-2xl relative group">
               <div className="absolute inset-0 bg-emerald-500/10 mix-blend-overlay group-hover:bg-transparent transition-colors duration-500"></div>
               <img src={slide.good.image} alt="Bus Factor Bajo" className="w-full h-auto object-cover transform group-hover:scale-105 transition-transform duration-700" />
@@ -602,19 +594,19 @@ const SectionRenderer = ({ slide }) => {
           <p className="text-xl md:text-2xl text-slate-400 mb-16 font-light max-w-4xl">{slide.subtitle}</p>
         </motion.div>
 
-        <div className="grid lg:grid-cols-2 gap-8 w-full max-w-6xl mb-12">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 w-full max-w-6xl mb-12">
           {slide.cols.map((col, i) => (
             <motion.div
               key={i}
               initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.3 + i * 0.2 }}
-              className={`${CARD_BG} p-10 rounded-xl border-t-2 ${i === 0 ? 'border-t-blue-500' : 'border-t-cyan-500'}`}
+              className={`${CARD_BG} p-6 sm:p-10 rounded-xl border-t-2 ${i === 0 ? 'border-t-blue-500' : 'border-t-cyan-500'}`}
             >
-              <h3 className="text-2xl font-bold mb-8 text-white flex items-center gap-4">
-                {col.icon} {col.title}
+              <h3 className="text-xl sm:text-2xl font-bold mb-6 sm:mb-8 text-white flex items-center gap-4">
+                {React.cloneElement(col.icon, { size: 24 })} {col.title}
               </h3>
-              <ul className="space-y-4">
+              <ul className="space-y-3 sm:space-y-4">
                 {col.items.map((item, j) => (
-                  <li key={j} className="flex items-center gap-4 text-slate-300 text-base font-light">
+                  <li key={j} className="flex items-center gap-3 sm:gap-4 text-slate-300 text-sm sm:text-base font-light">
                     <div className="w-1.5 h-1.5 bg-[#475569] shrink-0"></div>
                     <span>{item}</span>
                   </li>
@@ -636,31 +628,31 @@ const SectionRenderer = ({ slide }) => {
   if (isLimitations) {
     return (
       <MotionContainer bg={slide.bg} textColor={slide.textColor}>
-        <div className="flex flex-col md:flex-row gap-16 items-center">
-          <motion.div initial="hidden" animate="visible" variants={fadeUpVariants} className="md:w-1/3">
-            <div className="inline-flex items-center gap-3 mb-6 bg-amber-950/30 border border-amber-900/50 px-4 py-1.5 rounded-full text-amber-500 text-sm font-mono uppercase tracking-widest">
-              <AlertOctagon size={16} /> Restricciones
+        <div className="flex flex-col md:flex-row gap-8 sm:gap-16 items-center">
+          <motion.div initial="hidden" animate="visible" variants={fadeUpVariants} className="md:w-1/3 text-center md:text-left">
+            <div className="inline-flex items-center gap-3 mb-4 sm:mb-6 bg-amber-950/30 border border-amber-900/50 px-3 sm:px-4 py-1 sm:py-1.5 rounded-full text-amber-500 text-xs sm:text-sm font-mono uppercase tracking-widest">
+              <AlertOctagon size={14} /> Restricciones
             </div>
-            <h2 className="text-5xl md:text-6xl font-bold tracking-tight mb-6 text-slate-100">{slide.title}</h2>
-            <p className="text-xl text-slate-400 font-light leading-relaxed">{slide.subtitle}</p>
+            <h2 className="text-3xl sm:text-5xl md:text-6xl font-bold tracking-tight mb-4 sm:mb-6 text-slate-100">{slide.title}</h2>
+            <p className="text-lg sm:text-xl text-slate-400 font-light leading-relaxed">{slide.subtitle}</p>
           </motion.div>
 
-          <div className="md:w-2/3 grid gap-4 w-full">
+          <div className="md:w-2/3 grid gap-3 sm:gap-4 w-full">
             {slide.items.map((item, i) => (
               <motion.div
                 key={i}
                 initial={{ x: 50, opacity: 0 }} animate={{ x: 0, opacity: 1 }} transition={{ delay: 0.3 + i * 0.1 }}
-                className={`${CARD_BG} p-6 tracking-wide rounded-xl flex items-center gap-6`}
+                className={`${CARD_BG} p-4 sm:p-6 tracking-wide rounded-xl flex items-center gap-4 sm:gap-6`}
               >
-                <div className="p-3 bg-[#1E293B]/50 rounded-lg border border-[#334155]">
-                  {item.icon}
+                <div className="p-2 sm:p-3 bg-[#1E293B]/50 rounded-lg border border-[#334155] scale-90 sm:scale-100">
+                  {React.cloneElement(item.icon, { size: 24 })}
                 </div>
-                <h3 className="text-xl font-bold text-slate-200">{item.text}</h3>
+                <h3 className="text-lg sm:text-xl font-bold text-slate-200">{item.text}</h3>
               </motion.div>
             ))}
 
-            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.8 }} className="mt-8 border-l-2 border-indigo-500 pl-6">
-              <p className="text-lg font-light text-slate-300">
+            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.8 }} className="mt-4 sm:mt-8 border-l-2 border-indigo-500 pl-4 sm:pl-6">
+              <p className="text-base sm:text-lg font-light text-slate-300 leading-snug">
                 {slide.footer}
               </p>
             </motion.div>
@@ -704,19 +696,19 @@ const SectionRenderer = ({ slide }) => {
       <MotionContainer bg={slide.bg} textColor={slide.textColor}>
         <div className="flex flex-col items-center text-center max-w-4xl mx-auto">
           <motion.div initial="hidden" animate="visible" variants={fadeUpVariants} className="w-full">
-            <div className="inline-flex items-center gap-3 mb-8 bg-emerald-950/30 border border-emerald-900/50 px-4 py-1.5 rounded-full text-emerald-400 text-sm font-mono uppercase tracking-widest">
+            <div className="inline-flex items-center gap-3 mb-6 sm:mb-8 bg-emerald-950/30 border border-emerald-900/50 px-3 sm:px-4 py-1 sm:py-1.5 rounded-full text-emerald-400 text-xs sm:text-sm font-mono uppercase tracking-widest">
               Siguientes Pasos
             </div>
-            <h2 className={`text-6xl md:text-8xl font-black tracking-tighter mb-8 ${HIGHLIGHT_TEXT}`}>{slide.title}</h2>
-            <p className="text-2xl md:text-3xl text-slate-400 font-light leading-snug mb-16">{slide.subtitle}</p>
+            <h2 className={`text-4xl sm:text-6xl md:text-8xl font-black tracking-tighter mb-6 sm:mb-8 ${HIGHLIGHT_TEXT}`}>{slide.title}</h2>
+            <p className="text-xl sm:text-2xl md:text-3xl text-slate-400 font-light leading-snug mb-8 sm:mb-16">{slide.subtitle}</p>
           </motion.div>
 
-          <div className="flex flex-wrap justify-center gap-4 md:gap-6 mb-20">
+          <div className="flex flex-wrap justify-center gap-3 sm:gap-4 md:gap-6 mb-12 sm:mb-20">
             {slide.points.map((point, i) => (
               <motion.span
                 key={i}
                 initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.5 + i * 0.1 }}
-                className="bg-[#1E293B]/50 text-slate-300 border border-[#334155] px-6 py-3 rounded-lg text-lg font-medium"
+                className="bg-[#1E293B]/50 text-slate-300 border border-[#334155] px-4 sm:px-6 py-2 sm:py-3 rounded-lg text-base sm:text-lg font-medium"
               >
                 {point}
               </motion.span>
@@ -725,12 +717,12 @@ const SectionRenderer = ({ slide }) => {
 
           <motion.div
             initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 1 }}
-            className="w-full border-t border-[#1E293B] pt-12"
+            className="w-full border-t border-[#1E293B] pt-8 sm:pt-12"
           >
-            <p className="text-xl md:text-2xl font-mono tracking-tight text-slate-500">
-              <span className="text-green-500 mr-2">root@sistemas:~#</span>
-              {slide.footer}
-              <span className="inline-block w-3 h-6 bg-slate-500 ml-2 align-middle animate-pulse"></span>
+            <p className="text-lg sm:text-xl md:text-2xl font-mono tracking-tight text-slate-500">
+              <span className="text-green-500 mr-2 sm:inline block">root@sistemas:~#</span>
+              <span className="leading-tight">{slide.footer}</span>
+              <span className="inline-block w-2 sm:w-3 h-4 sm:h-6 bg-slate-500 ml-2 align-middle animate-pulse"></span>
             </p>
           </motion.div>
         </div>
@@ -775,6 +767,28 @@ export default function App() {
     setCurrentSlide((prev) => (prev > 0 ? prev - 1 : prev));
   }, []);
 
+  const [touchStart, setTouchStart] = useState(null);
+  const [touchEnd, setTouchEnd] = useState(null);
+
+  // Minimum swipe distance in px
+  const minSwipeDistance = 50;
+
+  const onTouchStart = (e) => {
+    setTouchEnd(null);
+    setTouchStart(e.targetTouches[0].clientX);
+  };
+
+  const onTouchMove = (e) => setTouchEnd(e.targetTouches[0].clientX);
+
+  const onTouchEnd = () => {
+    if (!touchStart || !touchEnd) return;
+    const distance = touchStart - touchEnd;
+    const isLeftSwipe = distance > minSwipeDistance;
+    const isRightSwipe = distance < -minSwipeDistance;
+    if (isLeftSwipe) nextSlide();
+    if (isRightSwipe) prevSlide();
+  };
+
   useEffect(() => {
     const handleKeyDown = (e) => {
       if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'Enter') {
@@ -788,12 +802,17 @@ export default function App() {
   }, [nextSlide, prevSlide]);
 
   return (
-    <div className="fixed inset-0 bg-[#0B1120] text-slate-50 font-sans selection:bg-blue-500/30 overflow-hidden">
+    <div 
+      className="fixed inset-0 bg-[#0B1120] text-slate-50 font-sans selection:bg-blue-500/30 overflow-hidden"
+      onTouchStart={onTouchStart}
+      onTouchMove={onTouchMove}
+      onTouchEnd={onTouchEnd}
+    >
       {/* Top Bar Area */}
-      <div className="fixed top-0 left-0 right-0 h-16 border-b border-[#1E293B] bg-[#0B1120]/80 backdrop-blur-md z-50 flex items-center justify-between px-8">
-        <div className="flex items-center gap-3">
-          <div className="w-6 h-6 rounded bg-gradient-to-br from-blue-500 to-cyan-400"></div>
-          <span className="font-bold text-sm tracking-widest text-slate-200">
+      <div className="fixed top-0 left-0 right-0 h-14 sm:h-16 border-b border-[#1E293B] bg-[#0B1120]/80 backdrop-blur-md z-50 flex items-center justify-between px-4 sm:px-8">
+        <div className="flex items-center gap-2 sm:gap-3">
+          <div className="w-5 h-5 sm:w-6 sm:h-6 rounded bg-gradient-to-br from-blue-500 to-cyan-400"></div>
+          <span className="font-bold text-[10px] sm:text-sm tracking-[0.1em] sm:tracking-widest text-slate-200 uppercase">
             OP // SISTEMAS
           </span>
         </div>
@@ -807,21 +826,21 @@ export default function App() {
       </AnimatePresence>
 
       {/* Manual Controls for easy clicking / Canva prepping */}
-      <div className="fixed bottom-8 left-1/2 -translate-x-1/2 z-50 flex items-center gap-6 bg-[#0B1120]/90 border border-[#1E293B] shadow-2xl px-6 py-3 rounded-full backdrop-blur-md">
+      <div className="fixed bottom-4 sm:bottom-8 left-1/2 -translate-x-1/2 z-50 flex items-center gap-3 sm:gap-6 bg-[#0B1120]/90 border border-[#1E293B] shadow-2xl px-4 sm:px-6 py-2 sm:py-3 rounded-full backdrop-blur-md">
         <button
           onClick={prevSlide}
           disabled={currentSlide === 0}
-          className="text-slate-400 hover:text-white transition-colors disabled:opacity-30 disabled:cursor-not-allowed"
+          className="text-slate-400 hover:text-white transition-colors disabled:opacity-30 disabled:cursor-not-allowed p-1 sm:p-2"
         >
-          <ChevronLeft size={24} />
+          <ChevronLeft size={20} sm:size={24} />
         </button>
 
-        <div className="flex gap-2">
+        <div className="flex gap-1.5 sm:gap-2">
           {slidesData.map((_, i) => (
             <button
               key={i}
               onClick={() => setCurrentSlide(i)}
-              className={`w-2 h-2 rounded-full transition-all ${i === currentSlide ? 'bg-cyan-400 w-6' : 'bg-slate-700'}`}
+              className={`h-1.5 rounded-full transition-all ${i === currentSlide ? 'bg-cyan-400 w-4 sm:w-6' : 'bg-slate-700 w-1.5'}`}
             />
           ))}
         </div>
@@ -829,9 +848,9 @@ export default function App() {
         <button
           onClick={nextSlide}
           disabled={currentSlide === slidesData.length - 1}
-          className="text-slate-400 hover:text-white transition-colors disabled:opacity-30 disabled:cursor-not-allowed"
+          className="text-slate-400 hover:text-white transition-colors disabled:opacity-30 disabled:cursor-not-allowed p-1 sm:p-2"
         >
-          <ChevronRight size={24} />
+          <ChevronRight size={20} sm:size={24} />
         </button>
       </div>
     </div>
