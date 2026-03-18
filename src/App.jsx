@@ -6,7 +6,7 @@ import {
   Clock, Brain, Zap, GitCommit, LineChart, Lightbulb,
   UserCheck, BookOpen, MessageSquare, Rocket,
   ChevronLeft, ChevronRight, Fingerprint,
-  CheckCircle2, Award, Printer
+  CheckCircle2, Award, Printer, User
 } from 'lucide-react';
 
 import busFactorAltoImg from './assets/bus-factor-alto.png';
@@ -110,12 +110,9 @@ const slidesData = [
   {
     id: 6,
     layout: 'spof',
-    title: 'El Riesgo Real: SPOF',
-    subtitle: 'Single Point of Failure - El punto único de falla que puede paralizar todo.',
-    q1: '¿Qué es?',
-    a1: 'Un solo empleado, un solo sistema o un solo proceso que si falla, todo se detiene.',
-    q2: '¿Qué pasa cuando la persona clave se enferma, se va de vacaciones o renuncia?',
-    alert: 'PUNTO ÚNICO DE FALLA: En empresas en crecimiento, muchas veces el punto único de falla es UNA persona.',
+    title: 'El Cuello de Botella Humano',
+    subtitle: 'Cuando el crecimiento depende de una memoria individual, el negocio tiene un techo invisible de cristal.',
+    alert: 'En empresas en crecimiento, el punto único de falla (SPOF) suele tener nombre y apellido.',
     bg: TECH_BG,
     textColor: 'text-slate-100'
   },
@@ -436,44 +433,90 @@ const SectionRenderer = ({ slide }) => {
   if (isSpof) {
     return (
       <MotionContainer bg={slide.bg} textColor={slide.textColor}>
-        <motion.div initial="hidden" animate="visible" variants={fadeUpVariants} className="mb-6">
+        <motion.div initial="hidden" animate="visible" variants={fadeUpVariants} className="mb-4 sm:mb-8 text-center md:text-left">
           <div className="inline-flex items-center gap-3 mb-4 bg-rose-950/30 border border-rose-900/50 px-4 py-1.5 rounded-full text-rose-400 text-xs font-mono uppercase tracking-widest">
             <AlertOctagon size={14} /> Riesgo Estructural
           </div>
-          <h2 className="text-4xl md:text-5xl font-bold tracking-tight mb-4 text-slate-100">{slide.title}</h2>
-          <p className="text-lg md:text-xl text-slate-400 max-w-4xl font-light">{slide.subtitle}</p>
+          <h2 className="text-3xl sm:text-5xl md:text-7xl font-bold tracking-tight mb-4 text-slate-100">{slide.title}</h2>
+          <p className="text-lg sm:text-2xl text-slate-400 max-w-4xl font-light leading-snug">{slide.subtitle}</p>
         </motion.div>
 
-        <div className="grid md:grid-cols-2 gap-6 w-full max-w-5xl mb-6">
-          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.4 }} className={`${CARD_BG} p-6 rounded-xl`}>
-            <h3 className="text-slate-500 font-mono text-xs mb-2 tracking-widest uppercase border-b border-[#1E293B] pb-2">{slide.q1}</h3>
-            <p className="text-slate-300 text-base font-light leading-relaxed">{slide.a1}</p>
+        <div className="relative w-full max-w-2xl h-64 sm:h-80 mx-auto my-8 sm:my-16 flex items-center justify-center pointer-events-none">
+          {/* Central Node (The Human Bottleneck) */}
+          <motion.div
+            animate={{
+              scale: [1, 1.05, 1],
+              boxShadow: ["0 0 0px rgba(244,63,94,0)", "0 0 40px rgba(244,63,94,0.4)", "0 0 0px rgba(244,63,94,0)"]
+            }}
+            transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+            className="w-20 h-20 sm:w-24 sm:h-24 bg-rose-500 rounded-full flex items-center justify-center z-20 shadow-2xl relative border-4 border-rose-400/30"
+          >
+            <User size={40} className="text-white drop-shadow-lg" strokeWidth={2.5} />
+            <motion.div
+              animate={{ opacity: [0, 0.5, 0], scale: [1, 1.8, 2.5] }}
+              transition={{ duration: 3, repeat: Infinity, ease: "easeOut" }}
+              className="absolute inset-0 bg-rose-500 rounded-full"
+            />
           </motion.div>
-          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.6 }} className={`${CARD_BG} p-6 rounded-xl relative overflow-hidden`}>
-            <div className="absolute top-0 right-0 w-2 h-full bg-rose-500/50"></div>
-            <h3 className="text-slate-500 font-mono text-xs mb-2 tracking-widest uppercase border-b border-[#1E293B] pb-2">El Problema:</h3>
-            <p className="text-slate-300 text-base font-light leading-relaxed">{slide.q2}</p>
-          </motion.div>
+
+          {/* Peripheral Nodes (Tasks/Processes) */}
+          {[
+            { icon: <TrendingUp size={20} />, label: "Ventas", angle: 0 },
+            { icon: <Activity size={20} />, label: "Operación", angle: 60 },
+            { icon: <LifeBuoy size={20} />, label: "Soporte", angle: 120 },
+            { icon: <Calculator size={20} />, label: "Finanzas", angle: 180 },
+            { icon: <Target size={20} />, label: "Estrategia", angle: 240 },
+            { icon: <GitCommit size={20} />, label: "Integración", angle: 300 },
+          ].map((node, i) => {
+            const radius = typeof window !== 'undefined' && window.innerWidth < 640 ? 110 : 160;
+            const x = Math.cos((node.angle * Math.PI) / 180) * radius;
+            const y = Math.sin((node.angle * Math.PI) / 180) * radius;
+
+            return (
+              <React.Fragment key={i}>
+                <motion.div
+                  initial={{ pathLength: 0, opacity: 0 }}
+                  animate={{ pathLength: 1, opacity: 0.15 }}
+                  transition={{ delay: 1 + i * 0.1, duration: 1.2 }}
+                  className="absolute h-px bg-gradient-to-r from-rose-500 to-transparent origin-left z-10"
+                  style={{
+                    width: radius,
+                    left: "50%",
+                    top: "50%",
+                    transform: `rotate(${node.angle}deg)`,
+                  }}
+                />
+                <motion.div
+                  initial={{ scale: 0, opacity: 0 }}
+                  animate={{ scale: 1, opacity: 1 }}
+                  transition={{ delay: 1.5 + i * 0.1, type: "spring", stiffness: 200 }}
+                  className="absolute w-12 h-12 sm:w-16 sm:h-16 bg-[#111827] border border-slate-700/50 rounded-xl flex flex-col items-center justify-center z-30 shadow-2xl backdrop-blur-sm"
+                  style={{
+                    left: `calc(50% + ${x}px - ${typeof window !== 'undefined' && window.innerWidth < 640 ? 24 : 32}px)`,
+                    top: `calc(50% + ${y}px - ${typeof window !== 'undefined' && window.innerWidth < 640 ? 24 : 32}px)`,
+                  }}
+                >
+                  <div className="text-slate-400 group-hover:text-rose-400 transition-colors">{node.icon}</div>
+                  <span className="hidden sm:block text-[9px] uppercase tracking-tighter text-slate-500 font-bold mt-1">{node.label}</span>
+                </motion.div>
+              </React.Fragment>
+            );
+          })}
         </div>
 
         <motion.div
-          initial={{ y: 20, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ delay: 0.8 }}
-          className="w-full max-w-5xl bg-rose-950/20 border border-rose-900/50 p-4 rounded-xl flex items-center gap-4 mb-6"
+          initial={{ y: 20, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ delay: 2.2, duration: 0.8 }}
+          className="w-full max-w-5xl bg-rose-950/20 border-l-4 border-rose-500 p-6 rounded-r-xl flex items-center gap-6 mt-8 sm:mt-0"
         >
-          <div className="w-2 h-2 rounded-full bg-rose-500 animate-pulse shrink-0 tracking-widest"></div>
-          <p className="text-rose-400 font-mono text-xs md:text-sm selection:bg-rose-500/30">{slide.alert}</p>
+          <div className="p-3 bg-rose-500/10 rounded-full">
+            <AlertOctagon className="text-rose-500" size={24} />
+          </div>
+          <p className="text-rose-100 font-medium text-base sm:text-xl leading-relaxed italic">
+            "{slide.alert}"
+          </p>
         </motion.div>
-
-        {slide.image && (
-          <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ delay: 1, duration: 0.8 }}
-            className="max-w-4xl w-full rounded-2xl overflow-hidden border border-rose-900/30 shadow-2xl mx-auto"
-          >
-            <img src={slide.image} alt="SPOF Visualization" className="w-full max-h-[30vh] object-cover" />
-          </motion.div>
-        )}
       </MotionContainer>
     );
   }
