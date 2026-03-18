@@ -13,6 +13,7 @@ import busFactorAltoImg from './assets/bus-factor-alto.png';
 import busFactorBajoImg from './assets/bus-factor-bajo-nuevo.png';
 import arqueroImg from './assets/arquero.png';
 import spofImg from './assets/spof.png';
+import partnershipImg from './assets/partnership.png';
 
 // Common tech-corporate styling classes
 const TECH_BG = "bg-[#0B1120]"; // Very dark slate/blue
@@ -224,6 +225,7 @@ const slidesData = [
     subtitle: 'La pregunta no es si podés permitirte la automatización. Es si podés permitirte no hacerla.',
     points: ['Soltar la operación', 'Enfocarse en liderar', 'Escalabilidad real'],
     footer: 'El verdadero liderazgo no está en hacer más, sino en construir sistemas autónomos.',
+    image: partnershipImg,
     bg: TECH_BG,
     textColor: 'text-slate-100'
   }
@@ -767,6 +769,18 @@ const SectionRenderer = ({ slide }) => {
               <span className="inline-block w-2 sm:w-3 h-4 sm:h-6 bg-slate-500 ml-2 align-middle animate-pulse"></span>
             </p>
           </motion.div>
+
+          {slide.image && (
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 1.5, duration: 1 }}
+              className="mt-12 max-w-2xl w-full rounded-2xl overflow-hidden border border-slate-800/50 shadow-2xl relative group"
+            >
+              <div className="absolute inset-0 bg-blue-500/10 mix-blend-overlay pointer-events-none group-hover:opacity-0 transition-opacity duration-700"></div>
+              <img src={slide.image} alt="Human-AI Partnership" className="w-full h-auto object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-700" />
+            </motion.div>
+          )}
         </div>
       </MotionContainer>
     );
