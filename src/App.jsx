@@ -6,7 +6,7 @@ import {
   Clock, Brain, Zap, GitCommit, LineChart, Lightbulb,
   UserCheck, BookOpen, MessageSquare, Rocket,
   ChevronLeft, ChevronRight, Fingerprint,
-  CheckCircle2, Award, Printer, User
+  CheckCircle2, Award, Printer, User, MousePointer2
 } from 'lucide-react';
 
 import busFactorAltoImg from './assets/bus-factor-alto.png';
@@ -813,6 +813,16 @@ export default function App() {
     };
   }, []);
 
+  const [isPointerActive, setIsPointerActive] = useState(false);
+  const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
+
+  useEffect(() => {
+    if (!isPointerActive) return;
+    const handleMouseMove = (e) => setMousePos({ x: e.clientX, y: e.clientY });
+    window.addEventListener('mousemove', handleMouseMove);
+    return () => window.removeEventListener('mousemove', handleMouseMove);
+  }, [isPointerActive]);
+
   const nextSlide = useCallback(() => {
     setCurrentSlide((prev) => (prev + 1 < slidesData.length ? prev + 1 : prev));
   }, []);
@@ -872,6 +882,15 @@ export default function App() {
         </div>
         <div className="flex items-center gap-4 sm:gap-6">
           <button
+            onClick={() => setIsPointerActive(!isPointerActive)}
+            className={`flex items-center gap-2 ${isPointerActive ? 'text-red-500' : 'text-slate-400'} hover:text-red-400 transition-colors group`}
+            title="Activar Puntero Láser Digital"
+          >
+            {/* Assuming MousePointer2 is imported from 'lucide-react' */}
+            <MousePointer2 size={18} className={isPointerActive ? 'animate-pulse' : ''} />
+            <span className="hidden sm:inline text-xs font-mono tracking-widest uppercase">Láser</span>
+          </button>
+          <button
             onClick={() => window.print()}
             className="flex items-center gap-2 text-slate-400 hover:text-blue-400 transition-colors group"
             title="Exportar a PDF (para Google Slides/Canva)"
@@ -884,6 +903,14 @@ export default function App() {
           </div>
         </div>
       </div>
+
+      {isPointerActive && (
+        <motion.div
+          className="fixed pointer-events-none z-[10000] w-5 h-5 rounded-full bg-red-600 shadow-[0_0_20px_6px_rgba(220,38,38,0.8)] blur-[1px]"
+          animate={{ x: mousePos.x - 10, y: mousePos.y - 10 }}
+          transition={{ type: "spring", damping: 25, stiffness: 250, mass: 0.5 }}
+        />
+      )}
 
       {isPrintMode ? (
         <div className="print-view bg-[#0B1120] min-h-screen">
