@@ -908,7 +908,7 @@ export default function App() {
 
   return (
     <div
-      className="fixed inset-0 bg-[#0B1120] text-slate-50 font-sans selection:bg-blue-500/30 overflow-hidden"
+      className={`${isPrintMode ? 'min-h-screen' : 'fixed inset-0 overflow-hidden'} bg-[#0B1120] text-slate-50 font-sans selection:bg-blue-500/30`}
       onTouchStart={onTouchStart}
       onTouchMove={onTouchMove}
       onTouchEnd={onTouchEnd}
@@ -916,7 +916,7 @@ export default function App() {
       {/* Main Content */}
       {isPrintMode ? (
         <MotionConfig transition={{ duration: 0, delay: 0 }} reducedMotion="always">
-          <div className="print-view bg-[#0B1120] w-full overflow-hidden">
+          <div className="print-view bg-[#0B1120] w-full">
             {slidesData.map((slide) => (
               <div key={slide.id} className="print-slide-wrapper bg-[#0B1120]">
                 <SectionRenderer slide={slide} />
