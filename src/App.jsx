@@ -334,7 +334,7 @@ const SectionRenderer = ({ slide }) => {
               }}
               className={`${CARD_BG} p-6 sm:p-8 rounded-xl flex flex-col gap-4 sm:gap-6 relative overflow-hidden group`}
             >
-              <div className="absolute top-0 right-0 p-4 opacity-10 font-mono text-4xl sm:text-6xl tracking-tighter mix-blend-overlay group-hover:scale-110 transition-transform">
+              <div className="absolute top-0 right-0 p-4 opacity-20 font-mono text-4xl sm:text-6xl tracking-tighter text-white group-hover:scale-110 transition-transform">
                 {step.num}
               </div>
               <div className="flex items-center gap-4 border-b border-[#1E293B] pb-4">
@@ -424,7 +424,7 @@ const SectionRenderer = ({ slide }) => {
               transition={{ delay: 0.4 + i * 0.2 }}
               className={`${CARD_BG} p-6 sm:p-8 rounded-xl flex items-center gap-4 sm:gap-8`}
             >
-              <div className="w-[35%] sm:w-[40%] text-right overflow-hidden">
+              <div className="w-[35%] sm:w-[40%] text-right overflow-visible shrink-0 pr-1">
                 <div className={`text-4xl sm:text-5xl md:text-7xl font-black ${HIGHLIGHT_TEXT} tracking-tighter whitespace-nowrap`}>
                   {stat.value}
                 </div>
@@ -453,67 +453,67 @@ const SectionRenderer = ({ slide }) => {
 
         <div className="flex flex-col md:flex-row items-center justify-between gap-8 md:gap-12 w-full text-center md:text-left">
           <div className="relative w-full max-w-lg h-64 sm:h-80 flex items-center justify-center pointer-events-none shrink-0">
-          {/* Central Node (The Human Bottleneck) */}
-          <motion.div
-            animate={{
-              scale: [1, 1.05, 1],
-              boxShadow: ["0 0 0px rgba(244,63,94,0)", "0 0 40px rgba(244,63,94,0.4)", "0 0 0px rgba(244,63,94,0)"]
-            }}
-            transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
-            className="w-20 h-20 sm:w-24 sm:h-24 bg-rose-500 rounded-full flex items-center justify-center z-20 shadow-2xl relative border-4 border-rose-400/30"
-          >
-            <User size={40} className="text-white drop-shadow-lg" strokeWidth={2.5} />
+            {/* Central Node (The Human Bottleneck) */}
             <motion.div
-              animate={{ opacity: [0, 0.5, 0], scale: [1, 1.8, 2.5] }}
-              transition={{ duration: 3, repeat: Infinity, ease: "easeOut" }}
-              className="absolute inset-0 bg-rose-500 rounded-full"
-            />
-          </motion.div>
+              animate={{
+                scale: [1, 1.05, 1],
+                boxShadow: ["0 0 0px rgba(244,63,94,0)", "0 0 40px rgba(244,63,94,0.4)", "0 0 0px rgba(244,63,94,0)"]
+              }}
+              transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+              className="w-20 h-20 sm:w-24 sm:h-24 bg-rose-500 rounded-full flex items-center justify-center z-20 shadow-2xl relative border-4 border-rose-400/30"
+            >
+              <User size={40} className="text-white drop-shadow-lg" strokeWidth={2.5} />
+              <motion.div
+                animate={{ opacity: [0, 0.5, 0], scale: [1, 1.8, 2.5] }}
+                transition={{ duration: 3, repeat: Infinity, ease: "easeOut" }}
+                className="absolute inset-0 bg-rose-500 rounded-full"
+              />
+            </motion.div>
 
-          {/* Peripheral Nodes (Tasks/Processes) */}
-          {[
-            { icon: <TrendingUp size={20} />, label: "Ventas", angle: 0 },
-            { icon: <Activity size={20} />, label: "Operación", angle: 60 },
-            { icon: <LifeBuoy size={20} />, label: "Soporte", angle: 120 },
-            { icon: <Calculator size={20} />, label: "Finanzas", angle: 180 },
-            { icon: <Target size={20} />, label: "Estrategia", angle: 240 },
-            { icon: <GitCommit size={20} />, label: "Integración", angle: 300 },
-          ].map((node, i) => {
-            const radius = typeof window !== 'undefined' && window.innerWidth < 640 ? 110 : 160;
-            const x = Math.cos((node.angle * Math.PI) / 180) * radius;
-            const y = Math.sin((node.angle * Math.PI) / 180) * radius;
+            {/* Peripheral Nodes (Tasks/Processes) */}
+            {[
+              { icon: <TrendingUp size={20} />, label: "Ventas", angle: 0 },
+              { icon: <Activity size={20} />, label: "Operación", angle: 60 },
+              { icon: <LifeBuoy size={20} />, label: "Soporte", angle: 120 },
+              { icon: <Calculator size={20} />, label: "Finanzas", angle: 180 },
+              { icon: <Target size={20} />, label: "Estrategia", angle: 240 },
+              { icon: <GitCommit size={20} />, label: "Integración", angle: 300 },
+            ].map((node, i) => {
+              const radius = typeof window !== 'undefined' && window.innerWidth < 640 ? 110 : 160;
+              const x = Math.cos((node.angle * Math.PI) / 180) * radius;
+              const y = Math.sin((node.angle * Math.PI) / 180) * radius;
 
-            return (
-              <React.Fragment key={i}>
-                <motion.div
-                  initial={{ pathLength: 0, opacity: 0 }}
-                  animate={{ pathLength: 1, opacity: 0.15 }}
-                  transition={{ delay: 1 + i * 0.1, duration: 1.2 }}
-                  className="absolute h-px bg-gradient-to-r from-rose-500 to-transparent origin-left z-10"
-                  style={{
-                    width: radius,
-                    left: "50%",
-                    top: "50%",
-                    transform: `rotate(${node.angle}deg)`,
-                  }}
-                />
-                <motion.div
-                  initial={{ scale: 0, opacity: 0 }}
-                  animate={{ scale: 1, opacity: 1 }}
-                  transition={{ delay: 1.5 + i * 0.1, type: "spring", stiffness: 200 }}
-                  className="absolute w-12 h-12 sm:w-16 sm:h-16 bg-[#111827] border border-slate-700/50 rounded-xl flex flex-col items-center justify-center z-30 shadow-2xl backdrop-blur-sm"
-                  style={{
-                    left: `calc(50% + ${x}px - ${typeof window !== 'undefined' && window.innerWidth < 640 ? 24 : 32}px)`,
-                    top: `calc(50% + ${y}px - ${typeof window !== 'undefined' && window.innerWidth < 640 ? 24 : 32}px)`,
-                  }}
-                >
-                  <div className="text-slate-400 group-hover:text-rose-400 transition-colors">{node.icon}</div>
-                  <span className="hidden sm:block text-[9px] uppercase tracking-tighter text-slate-500 font-bold mt-1">{node.label}</span>
-                </motion.div>
-              </React.Fragment>
-            );
-          })}
-        </div>
+              return (
+                <React.Fragment key={i}>
+                  <motion.div
+                    initial={{ pathLength: 0, opacity: 0 }}
+                    animate={{ pathLength: 1, opacity: 0.15 }}
+                    transition={{ delay: 1 + i * 0.1, duration: 1.2 }}
+                    className="absolute h-px bg-gradient-to-r from-rose-500 to-transparent origin-left z-10"
+                    style={{
+                      width: radius,
+                      left: "50%",
+                      top: "50%",
+                      transform: `rotate(${node.angle}deg)`,
+                    }}
+                  />
+                  <motion.div
+                    initial={{ scale: 0, opacity: 0 }}
+                    animate={{ scale: 1, opacity: 1 }}
+                    transition={{ delay: 1.5 + i * 0.1, type: "spring", stiffness: 200 }}
+                    className="absolute w-12 h-12 sm:w-16 sm:h-16 bg-[#111827] border border-slate-700/50 rounded-xl flex flex-col items-center justify-center z-30 shadow-2xl backdrop-blur-sm"
+                    style={{
+                      left: `calc(50% + ${x}px - ${typeof window !== 'undefined' && window.innerWidth < 640 ? 24 : 32}px)`,
+                      top: `calc(50% + ${y}px - ${typeof window !== 'undefined' && window.innerWidth < 640 ? 24 : 32}px)`,
+                    }}
+                  >
+                    <div className="text-slate-400 group-hover:text-rose-400 transition-colors">{node.icon}</div>
+                    <span className="hidden sm:block text-[9px] uppercase tracking-tighter text-slate-500 font-bold mt-1">{node.label}</span>
+                  </motion.div>
+                </React.Fragment>
+              );
+            })}
+          </div>
 
           <motion.div
             initial={{ y: 20, opacity: 0 }}
@@ -809,28 +809,38 @@ const SectionRenderer = ({ slide }) => {
 
   if (isImpactConclusion) {
     return (
-      <MotionContainer bg={slide.bg} textColor={slide.textColor} className="flex flex-col items-center w-full">
-        <motion.div initial="hidden" animate="visible" variants={fadeUpVariants} className="text-center mb-10 w-full max-w-5xl px-4">
-          <div className="w-full flex justify-center mb-6">
-             <div className="w-16 sm:w-24 h-px bg-gradient-to-r from-transparent via-cyan-400 to-transparent shadow-[0_0_10px_rgba(34,211,238,0.8)]"></div>
+      <MotionContainer bg={slide.bg} textColor={slide.textColor} className="flex flex-col md:flex-row items-center justify-center gap-12 md:gap-16 w-full max-w-7xl mx-auto md:px-12">
+        {/* Text Section */}
+        <motion.div initial="hidden" animate="visible" variants={fadeUpVariants} className="md:w-[55%] flex flex-col items-center md:items-start text-center md:text-left order-2 md:order-1 z-20">
+          <div className="inline-flex items-center gap-3 mb-6 bg-cyan-950/40 border border-cyan-500/30 px-5 py-2 rounded-full text-cyan-400 text-sm font-bold font-mono uppercase tracking-widest shadow-[0_0_20px_rgba(34,211,238,0.15)]">
+            <Zap size={16} className="text-cyan-300" /> Visión del Futuro
           </div>
-          <p className="text-xl sm:text-4xl md:text-5xl font-black leading-tight text-transparent bg-clip-text bg-gradient-to-r from-slate-200 via-white to-cyan-100 tracking-tight text-balance">
+          <p className="text-3xl sm:text-5xl lg:text-6xl md:leading-[1.15] font-black text-transparent bg-clip-text bg-gradient-to-br from-white via-slate-200 to-cyan-500 tracking-tight text-balance mb-6 lg:mb-8">
             "{slide.subtitle}"
           </p>
-          <div className="w-full flex justify-center mt-6">
-             <div className="w-16 sm:w-24 h-px bg-gradient-to-r from-transparent via-cyan-400 to-transparent shadow-[0_0_10px_rgba(34,211,238,0.8)]"></div>
+          <div className="hidden md:flex items-center gap-3 opacity-80 mt-2">
+            <div className="w-16 h-1.5 bg-gradient-to-r from-cyan-400 to-blue-600 rounded-full"></div>
+            <div className="w-4 h-1.5 bg-blue-600/60 rounded-full"></div>
+            <div className="w-1.5 h-1.5 bg-blue-600/30 rounded-full"></div>
           </div>
         </motion.div>
 
-          <motion.div
-            initial={{ scale: 0.9, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            transition={{ delay: 0.5, duration: 1 }}
-            className="relative w-full sm:w-[85vw] max-w-6xl h-[35vh] sm:h-[50vh] lg:h-[60vh] rounded-2xl overflow-hidden border-4 border-cyan-500/30 shadow-[0_0_50px_rgba(6,182,212,0.2)]"
-          >
-          <div className="absolute inset-0 bg-cyan-500/10 mix-blend-overlay group-hover:bg-transparent transition-colors duration-1000 z-10 pointer-events-none"></div>
-          <img src={slide.image} alt={slide.subtitle} className="w-full h-full object-cover object-[center_20%] transform transition-transform duration-[15s] ease-out hover:scale-[1.03]" />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#0B1120] via-[#0B1120]/10 to-transparent opacity-60 z-0 pointer-events-none"></div>
+        {/* Image Section */}
+        <motion.div
+          initial={{ scale: 0.9, opacity: 0, x: 20 }}
+          animate={{ scale: 1, opacity: 1, x: 0 }}
+          transition={{ delay: 0.4, duration: 1, ease: "easeOut" }}
+          className="md:w-[45%] flex justify-center order-1 md:order-2 w-full max-w-sm sm:max-w-md md:max-w-full relative z-10"
+        >
+          {/* Decorative background glow */}
+          <div className="absolute inset-0 bg-cyan-500/20 blur-[60px] rounded-full scale-110 -z-10 animate-pulse"></div>
+
+          <div className="relative w-full aspect-square sm:aspect-[4/3] rounded-3xl overflow-hidden border border-slate-700/50 shadow-[0_10px_40px_rgba(6,182,212,0.25)] group">
+            <div className="absolute inset-0 bg-gradient-to-tr from-cyan-500/20 to-[#0B1120]/10 mix-blend-overlay group-hover:opacity-75 transition-opacity duration-1000 z-10 pointer-events-none"></div>
+            <img src={slide.image} alt="Impact Conclusion" className="w-full h-full object-cover object-[center_20%] transform transition-transform duration-[20s] ease-out hover:scale-[1.08]" />
+            <div className="absolute inset-0 bg-gradient-to-t from-[#0B1120] via-transparent to-transparent opacity-40 z-0 pointer-events-none"></div>
+            <div className="absolute inset-0 rounded-3xl ring-1 ring-inset ring-white/10 z-20 pointer-events-none"></div>
+          </div>
         </motion.div>
       </MotionContainer>
     );
@@ -922,34 +932,34 @@ export default function App() {
 
       {/* Manual Controls for easy clicking / Canva prepping */}
       {!isPrintMode && (
-      <div className="print:hidden fixed bottom-4 left-1/2 -translate-x-1/2 z-50 flex items-center gap-1 sm:gap-4 bg-[#0B1120]/40 border border-slate-800/30 shadow-lg px-3 sm:px-5 py-1.5 sm:py-2 rounded-full backdrop-blur-sm w-auto justify-center">
-        <button
-          onClick={prevSlide}
-          disabled={currentSlide === 0}
-          className="text-slate-500 hover:text-white transition-colors disabled:opacity-20 disabled:cursor-not-allowed p-1 shrink-0"
-        >
-          <ChevronLeft className="w-4 h-4 sm:w-5 sm:h-5" />
-        </button>
+        <div className="print:hidden fixed bottom-4 left-1/2 -translate-x-1/2 z-50 flex items-center gap-1 sm:gap-4 bg-[#0B1120]/40 border border-slate-800/30 shadow-lg px-3 sm:px-5 py-1.5 sm:py-2 rounded-full backdrop-blur-sm w-auto justify-center">
+          <button
+            onClick={prevSlide}
+            disabled={currentSlide === 0}
+            className="text-slate-500 hover:text-white transition-colors disabled:opacity-20 disabled:cursor-not-allowed p-1 shrink-0"
+          >
+            <ChevronLeft className="w-4 h-4 sm:w-5 sm:h-5" />
+          </button>
 
-        <div className="flex gap-1 sm:gap-1.5 items-center py-1 px-1">
-          {slidesData.map((_, i) => (
-            <button
-              key={i}
-              onClick={() => setCurrentSlide(i)}
-              className={`rounded-full transition-all shrink-0 ${i === currentSlide ? 'bg-cyan-500/80 w-3 sm:w-4 h-1.5' : 'bg-slate-800/60 w-1.5 h-1.5'}`}
-              aria-label={`Go to slide ${i + 1}`}
-            />
-          ))}
+          <div className="flex gap-1 sm:gap-1.5 items-center py-1 px-1">
+            {slidesData.map((_, i) => (
+              <button
+                key={i}
+                onClick={() => setCurrentSlide(i)}
+                className={`rounded-full transition-all shrink-0 ${i === currentSlide ? 'bg-cyan-500/80 w-3 sm:w-4 h-1.5' : 'bg-slate-800/60 w-1.5 h-1.5'}`}
+                aria-label={`Go to slide ${i + 1}`}
+              />
+            ))}
+          </div>
+
+          <button
+            onClick={nextSlide}
+            disabled={currentSlide === slidesData.length - 1}
+            className="text-slate-500 hover:text-white transition-colors disabled:opacity-20 disabled:cursor-not-allowed p-1 shrink-0"
+          >
+            <ChevronRight className="w-4 h-4 sm:w-5 sm:h-5" />
+          </button>
         </div>
-
-        <button
-          onClick={nextSlide}
-          disabled={currentSlide === slidesData.length - 1}
-          className="text-slate-500 hover:text-white transition-colors disabled:opacity-20 disabled:cursor-not-allowed p-1 shrink-0"
-        >
-          <ChevronRight className="w-4 h-4 sm:w-5 sm:h-5" />
-        </button>
-      </div>
       )}
     </div>
   );
