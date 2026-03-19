@@ -123,12 +123,12 @@ const slidesData = [
     title: 'El "Bus Factor"',
     subtitle: '¿Cuántas personas deben desaparecer de una organización para que esta se paralice?',
     bad: {
-      title: 'BUS FACTOR ALTO',
+      title: 'BUS FACTOR BAJO',
       desc: 'El conocimiento y la operación están centralizados en una sola persona o muy pocas. Si faltan, el sistema colapsa.',
       image: busFactorBajoImg
     },
     good: {
-      title: 'BUS FACTOR BAJO',
+      title: 'BUS FACTOR ALTO',
       desc: 'El conocimiento está descentralizado en sistemas o delegados. Si la pieza clave no está, la organización fluye.',
       image: busFactorAltoImg
     },
@@ -424,7 +424,7 @@ const SectionRenderer = ({ slide }) => {
               transition={{ delay: 0.4 + i * 0.2 }}
               className={`${CARD_BG} p-6 sm:p-8 rounded-xl flex items-center gap-4 sm:gap-8`}
             >
-              <div className="w-[35%] sm:w-[40%] text-right overflow-visible shrink-0 pr-1">
+              <div className="w-[45%] flex-none text-right overflow-visible pr-2 sm:pr-4">
                 <div className={`text-4xl sm:text-5xl md:text-7xl font-black ${HIGHLIGHT_TEXT} tracking-tighter whitespace-nowrap`}>
                   {stat.value}
                 </div>
