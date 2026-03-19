@@ -125,12 +125,12 @@ const slidesData = [
     bad: {
       title: 'BUS FACTOR ALTO',
       desc: 'El conocimiento y la operación están centralizados en una sola persona o muy pocas. Si faltan, el sistema colapsa.',
-      image: busFactorAltoImg
+      image: busFactorBajoImg
     },
     good: {
       title: 'BUS FACTOR BAJO',
       desc: 'El conocimiento está descentralizado en sistemas o delegados. Si la pieza clave no está, la organización fluye.',
-      image: busFactorBajoImg
+      image: busFactorAltoImg
     },
     bg: TECH_BG,
     textColor: 'text-slate-100'
@@ -390,7 +390,7 @@ const SectionRenderer = ({ slide }) => {
               <ul className="space-y-2 sm:space-y-3 mb-6 sm:mb-8">
                 {col.items.map((item, j) => (
                   <li key={j} className="flex items-start gap-3 sm:gap-4 text-slate-400 text-xs sm:text-base font-light leading-snug">
-                    <span className={`mt-1 sm:mt-1.5 font-mono text-xs sm:text-sm ${slide.isCrisis ? 'text-amber-500' : 'text-blue-500'}`}>›</span>
+                    <span className={`shrink-0 mt-[1px] sm:mt-1 font-mono text-sm sm:text-base leading-none ${slide.isCrisis ? 'text-amber-500' : 'text-blue-500'}`}>›</span>
                     <span>{item}</span>
                   </li>
                 ))}
