@@ -896,9 +896,9 @@ export default function App() {
 
   useEffect(() => {
     const handleKeyDown = (e) => {
-      if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'Enter') {
+      if (['ArrowRight', ' ', 'Enter', 'PageDown', 'ArrowDown', 'n', 'N'].includes(e.key)) {
         nextSlide();
-      } else if (e.key === 'ArrowLeft') {
+      } else if (['ArrowLeft', 'PageUp', 'ArrowUp', 'p', 'P'].includes(e.key)) {
         prevSlide();
       }
     };
